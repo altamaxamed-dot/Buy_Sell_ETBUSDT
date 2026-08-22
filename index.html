@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ETB USDT P2P</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: #ffffff;
+      min-height: 100vh;
+      padding-bottom: 85px;
+    }
+
+    .app {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .header {
+      padding: 22px 18px 15px;
+      background: #111827;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid #253047;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .demo {
+      background: #f59e0b;
+      color: #111827;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 20px;
+    }
+
+    .subtitle {
+      color: #94a3b8;
+      margin-top: 5px;
+      font-size: 13px;
+    }
+
+    .balance-card {
+      margin: 16px;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .balance-label {
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
+    .balance {
+      font-size: 30px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .etb-balance {
+      margin-top: 5px;
+      opacity: 0.85;
+      font-size: 14px;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .action-btn {
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .buy-btn {
+      background: #22c55e;
+      color: white;
+    }
+
+    .sell-btn {
+      background: #ef4444;
+      color: white;
+    }
+
+    .section {
+      padding: 8px 16px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 14px 0;
+    }
+
+    .rate-card {
+      background: #111827;
+      border: 1px solid #243244;
+      padding: 15px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+    }
+
+    .rate-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .rate-label {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .rate-value {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .online {
+      color: #22c55e;
+      font-size: 12px;
+    }
+
+    .tabs {
+      background: #111827;
+      padding: 5px;
+      border-radius: 13px;
+      display: flex;
+      margin-bottom: 15px;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #94a3b8;
+    }
+
+    .tab.active {
+      background: #2563eb;
+      color: white;
+      font-weight: bold;
+    }
+
+    .offer {
+      background: #111827;
+      border: 1px solid #243244;
+      padding: 16px;
+      border-radius: 17px;
+      margin-bottom: 12px;
+    }
+
+    .seller {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 13px;
+    }
+
+    .seller-name {
+      font-weight: bold;
+    }
+
+    .verified {
+      color: #38bdf8;
+    }
+
+    .trades {
+      color: #94a3b8;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .offer-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .small-label {
+      color: #94a3b8;
+      font-size: 12px;
+    }
+
+    .value {
+      margin-top: 4px;
+      font-weight: bold;
+    }
+
+    .payment {
+      margin-top: 13px;
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+
+    .trade-button {
+      width: 100%;
+      margin-top: 15px;
+      border: none;
+      padding: 12px;
+      border-radius: 11px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #22c55e;
+      color: white;
+    }
+
+    .sell-mode .trade-button {
+      background: #ef4444;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 500px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: #111827;
+      border-top: 1px solid #253047;
+      padding: 10px 5px 20px;
+      z-index: 20;
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 12px;
+      color: #94a3b8;
+      cursor: pointer;
+    }
+
+    .nav-icon {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .nav-item.active {
+      color: #60a5fa;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 50;
+      align-items: end;
+      justify-content: center;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 500px;
+      background: #111827;
+      padding: 22px;
+      border-radius: 24px 24px 0 0;
+    }
+
+    .modal-box h2 {
+      margin-bottom: 15px;
+    }
+
+    .input {
+      width: 100%;
+      background: #0f172a;
+      color: white;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    .summary {
+      background: #0f172a;
+      border-radius: 12px;
+      padding: 14px;
+      margin: 14px 0;
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+
+    .confirm {
+      width: 100%;
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .close {
+      margin-top: 10px;
+      width: 100%;
+      background: transparent;
+      color: #94a3b8;
+      border: none;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header class="header">
+    <div class="header-top">
+      <div class="logo">ETB ↔ USDT</div>
+      <span class="demo">DEMO</span>
+    </div>
+    <div class="subtitle">Telegram P2P Marketplace</div>
+  </header>
+
+  <div class="balance-card">
+    <div class="balance-label">Demo Wallet Balance</div>
+    <div class="balance">250.00 USDT</div>
+    <div class="etb-balance">≈ 38,750 ETB</div>
+
+    <div class="actions">
+      <button class="action-btn buy-btn" onclick="setMode('buy')">
+        Buy USDT
+      </button>
+
+      <button class="action-btn sell-btn" onclick="setMode('sell')">
+        Sell USDT
+      </button>
+    </div>
+  </div>
+
+  <div class="section">
+
+    <div class="rate-card">
+      <div class="rate-row">
+        <div>
+          <div class="rate-label">Market Reference</div>
+          <div class="rate-value">1 USDT = 155 ETB</div>
+        </div>
+
+        <div class="online">● Online</div>
+      </div>
+    </div>
+
+    <div class="section-title">P2P Offers</div>
+
+    <div class="tabs">
+      <div class="tab active" id="buyTab" onclick="setMode('buy')">
+        Buy
+      </div>
+
+      <div class="tab" id="sellTab" onclick="setMode('sell')">
+        Sell
+      </div>
+    </div>
+
+    <div id="offers"></div>
+
+  </div>
+</div>
+
+
+<div class="bottom-nav">
+  <div class="nav-item active">
+    <span class="nav-icon">🏠</span>
+    Home
+  </div>
+
+  <div class="nav-item">
+    <span class="nav-icon">📋</span>
+    Orders
+  </div>
+
+  <div class="nav-item">
+    <span class="nav-icon">💰</span>
+    Wallet
+  </div>
+
+  <div class="nav-item">
+    <span class="nav-icon">👤</span>
+    Profile
+  </div>
+</div>
+
+
+<div class="modal" id="tradeModal">
+
+  <div class="modal-box">
+
+    <h2 id="modalTitle">Buy USDT</h2>
+
+    <div class="small-label">Amount in USDT</div>
+
+    <input
+      class="input"
+      type="number"
+      id="amount"
+      placeholder="Enter amount"
+      oninput="calculateTotal()"
+    />
+
+    <div class="summary">
+      Rate:
+      <strong><span id="modalRate">155</span> ETB</strong>
+      <br>
+
+      You pay / receive:
+      <strong><span id="total">0</span> ETB</strong>
+      <br>
+
+      Payment method:
+      <strong id="modalPayment">Bank Transfer</strong>
+    </div>
+
+    <button class="confirm" onclick="createDemoOrder()">
+      Create Demo Order
+    </button>
+
+    <button class="close" onclick="closeModal()">
+      Cancel
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  let mode = "buy";
+  let selectedRate = 155;
+
+  const buyOffers = [
+    {
+      seller: "Ahmed Trader",
+      rate: 155,
+      available: "500 USDT",
+      limit: "1,000 - 50,000 ETB",
+      payment: "CBE",
+      trades: "245 trades • 98%"
+    },
+
+    {
+      seller: "Abdi P2P",
+      rate: 154.8,
+      available: "820 USDT",
+      limit: "2,000 - 100,000 ETB",
+      payment: "Telebirr",
+      trades: "608 trades • 99%"
+    },
+
+    {
+      seller: "Hassan Exchange",
+      rate: 155.5,
+      available: "1,240 USDT",
+      limit: "5,000 - 150,000 ETB",
+      payment: "CBE / Telebirr",
+      trades: "1,102 trades • 99%"
+    }
+  ];
+
+  const sellOffers = [
+    {
+      seller: "Muna Exchange",
+      rate: 154,
+      available: "700 USDT",
+      limit: "2,000 - 80,000 ETB",
+      payment: "CBE",
+      trades: "352 trades • 97%"
+    },
+
+    {
+      seller: "Fast ETB",
+      rate: 154.5,
+      available: "1,050 USDT",
+      limit: "5,000 - 120,000 ETB",
+      payment: "Telebirr",
+      trades: "730 trades • 99%"
+    }
+  ];
+
+
+  function renderOffers() {
+
+    const container = document.getElementById("offers");
+
+    const list =
+      mode === "buy"
+      ? buyOffers
+      : sellOffers;
+
+    container.innerHTML = "";
+
+    list.forEach((offer, index) => {
+
+      container.innerHTML += `
+        <div class="offer ${mode === "sell" ? "sell-mode" : ""}">
+
+          <div class="seller">
+
+            <div>
+              <div class="seller-name">
+                ${offer.seller}
+                <span class="verified">✓</span>
+              </div>
+
+              <div class="trades">
+                ${offer.trades}
+              </div>
+            </div>
+
+          </div>
+
+          <div class="offer-details">
+
+            <div>
+              <div class="small-label">Price</div>
+              <div class="value">
+                ${offer.rate} ETB
+              </div>
+            </div>
+
+            <div>
+              <div class="small-label">Available</div>
+              <div class="value">
+                ${offer.available}
+              </div>
+            </div>
+
+            <div>
+              <div class="small-label">Limit</div>
+              <div class="value">
+                ${offer.limit}
+              </div>
+            </div>
+
+          </div>
+
+          <div class="payment">
+            Payment:
+            <strong>${offer.payment}</strong>
+          </div>
+
+          <button
+            class="trade-button"
+            onclick="openTrade(${index})"
+          >
+
+            ${mode === "buy"
+              ? "Buy USDT"
+              : "Sell USDT"}
+
+          </button>
+
+        </div>
+      `;
+    });
+
+  }
+
+
+  function setMode(newMode) {
+
+    mode = newMode;
+
+    document
+      .getElementById("buyTab")
+      .classList.toggle(
+        "active",
+        mode === "buy"
+      );
+
+    document
+      .getElementById("sellTab")
+      .classList.toggle(
+        "active",
+        mode === "sell"
+      );
+
+    renderOffers();
+  }
+
+
+  function openTrade(index) {
+
+    const offer =
+      mode === "buy"
+      ? buyOffers[index]
+      : sellOffers[index];
+
+    selectedRate = offer.rate;
+
+    document.getElementById("modalTitle")
+      .innerText =
+      mode === "buy"
+      ? "Buy USDT"
+      : "Sell USDT";
+
+    document.getElementById("modalRate")
+      .innerText =
+      offer.rate;
+
+    document.getElementById("modalPayment")
+      .innerText =
+      offer.payment;
+
+    document.getElementById("amount").value = "";
+
+    document.getElementById("total")
+      .innerText = "0";
+
+    document.getElementById("tradeModal")
+      .style.display = "flex";
+  }
+
+
+  function closeModal() {
+
+    document.getElementById("tradeModal")
+      .style.display = "none";
+  }
+
+
+  function calculateTotal() {
+
+    const amount =
+      Number(
+        document.getElementById("amount").value
+      );
+
+    const total =
+      amount * selectedRate;
+
+    document.getElementById("total")
+      .innerText =
+      total.toLocaleString();
+  }
+
+
+  function createDemoOrder() {
+
+    const amount =
+      document.getElementById("amount").value;
+
+    if (!amount || amount <= 0) {
+
+      alert("Please enter USDT amount");
+
+      return;
+    }
+
+    alert(
+      "Demo order created successfully ✅\n\n" +
+      "No real money has been transferred."
+    );
+
+    closeModal();
+  }
+
+
+  renderOffers();
+
+</script>
+
+</body>
+</html>
