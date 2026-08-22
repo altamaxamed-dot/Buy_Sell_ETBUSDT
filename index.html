@@ -737,7 +737,14 @@
     }
 
     window.currentUser = result.user;
+document.querySelector(".balance").textContent =
+  Number(result.user.balance_usdt || 0).toFixed(2) + " USDT";
 
+document.querySelector(".etb-balance").textContent =
+  "≈ " + Number(result.user.balance_etb || 0).toLocaleString() + " ETB";
+
+document.querySelector(".balance-label").textContent =
+  "Wallet Balance";
     alert(
       "Login successful ✅\nWelcome " +
       (result.user.first_name || result.user.username || "User")
