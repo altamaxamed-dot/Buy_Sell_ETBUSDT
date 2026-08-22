@@ -1,38 +1,71 @@
-.logo { font-size: 18px; }
-.subtitle { font-size: 12px; }
+/* Compact professional mobile UI */
+
+.logo {
+  font-size: 17px !important;
+}
+
+.subtitle {
+  font-size: 11px !important;
+}
 
 .balance-card {
-  padding: 16px;
-  margin: 14px;
+  padding: 14px !important;
+  margin: 12px !important;
+  border-radius: 18px !important;
 }
 
-.balance-label { font-size: 12px; }
-.balance { font-size: 24px; }
-.etb-balance { font-size: 13px; }
+.balance-label {
+  font-size: 11px !important;
+}
+
+.balance {
+  font-size: 22px !important;
+}
+
+.etb-balance {
+  font-size: 12px !important;
+}
 
 .action-btn {
-  padding: 11px;
-  font-size: 13px;
+  padding: 10px !important;
+  font-size: 12px !important;
 }
 
-.section-title { font-size: 16px; }
-.rate-value { font-size: 16px; }
+.section-title {
+  font-size: 15px !important;
+}
+
+.rate-value {
+  font-size: 15px !important;
+}
 
 .tab {
-  padding: 8px;
-  font-size: 13px;
+  padding: 8px !important;
+  font-size: 12px !important;
 }
 
-.offer { padding: 13px; }
-.seller-name { font-size: 14px; }
-.trades { font-size: 11px; }
-.value { font-size: 13px; }
-.payment { font-size: 12px; }
-
-.trade-button {
-  padding: 10px;
-  font-size: 13px;
+.offer {
+  padding: 12px !important;
 }
 
-.nav-item { font-size: 11px; }
-.nav-icon { font-size: 17px; }
+.seller-name {
+  font-size: 13px !important;
+}
+
+.trades {
+  font-size: 10px !important;
+}
+
+.value {
+  font-size: 12px !important;
+}
+
+.bottom-nav {
+  font-size: 11px !important;
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 13px !important;
+  }
+}
