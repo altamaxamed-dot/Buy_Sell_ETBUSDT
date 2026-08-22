@@ -1,0 +1,38 @@
+.logo { font-size: 18px; }
+.subtitle { font-size: 12px; }
+
+.balance-card {
+  padding: 16px;
+  margin: 14px;
+}
+
+.balance-label { font-size: 12px; }
+.balance { font-size: 24px; }
+.etb-balance { font-size: 13px; }
+
+.action-btn {
+  padding: 11px;
+  font-size: 13px;
+}
+
+.section-title { font-size: 16px; }
+.rate-value { font-size: 16px; }
+
+.tab {
+  padding: 8px;
+  font-size: 13px;
+}
+
+.offer { padding: 13px; }
+.seller-name { font-size: 14px; }
+.trades { font-size: 11px; }
+.value { font-size: 13px; }
+.payment { font-size: 12px; }
+
+.trade-button {
+  padding: 10px;
+  font-size: 13px;
+}
+
+.nav-item { font-size: 11px; }
+.nav-icon { font-size: 17px; }
