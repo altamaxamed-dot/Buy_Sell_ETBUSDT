@@ -389,7 +389,10 @@
     </div>
 
     <div id="offers"></div>
-
+<div id="ordersPage" style="display:none;">
+  <div class="section-title">My Orders</div>
+  <div id="ordersList"></div>
+</div>
   </div>
 </div>
 
@@ -651,11 +654,35 @@ if (orders.length === 0) {
   return;
 }
 
-const orderText = orders.map(order => {
-  return `${order.type.toUpperCase()} | ${order.amount_usdt} USDT | ${order.status}`;
-}).join("\n");
+const ordersPage = document.getElementById("ordersPage");
+const ordersList = document.getElementById("ordersList");
 
-alert(orderText);
+ordersList.innerHTML = orders.map(order => {
+  return `
+    <div style="
+      background:#111827;
+      border:1px solid #334155;
+      border-radius:16px;
+      padding:16px;
+      margin-bottom:12px;
+    ">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>${order.type.toUpperCase()}</strong>
+        <span>${order.status}</span>
+      </div>
+
+      <div style="margin-top:10px;">
+        ${order.amount_usdt} USDT
+      </div>
+
+      <div style="margin-top:6px;color:#94a3b8;">
+        ${order.amount_etb || 0} ETB
+      </div>
+    </div>
+  `;
+}).join("");
+
+ordersPage.style.display = "block";
     } catch (error) {
         console.error(error);
         alert("Server connection failed.");
