@@ -332,6 +332,32 @@
       border: none;
       padding: 10px;
     }
+    .order-tabs {
+  display: flex;
+  background: #111827;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 4px;
+  margin: 15px 0 20px;
+  gap: 4px;
+}
+
+.order-tab {
+  flex: 1;
+  padding: 11px 16px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.order-tab.active {
+  background: #f59e0b;
+  color: #111827;
+}
   </style>
 </head>
 
@@ -398,10 +424,10 @@
 
   <div id="ordersPage" style="display:none;">
   <div class="section-title">My Orders</div>
-    <div style="display:flex; gap:10px; margin:15px 0;">
-  <button onclick="filterOrders('ongoing')" id="ongoingBtn">Ongoing</button>
-  <button onclick="filterOrders('completed')" id="completedBtn">Completed</button>
-</div>
+   <div class="order-tabs">
+  <button class="order-tab active" onclick="filterOrders('ongoing', this)">Ongoing</button>
+  <button class="order-tab" onclick="filterOrders('completed', this)">Completed</button>
+</div> 
   <div id="ordersList"></div>
 </div>
   <div class="bottom-nav">
