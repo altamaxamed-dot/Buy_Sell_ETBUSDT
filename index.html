@@ -725,8 +725,15 @@ document.getElementById("homePage").style.display = "none";
     }
 }
 function filterOrders(type, button) {
-  document.querySelectorAll(".order-tab").forEach(btn => btn.classList.remove("active"));
-if (button) button.classList.add("active");
+ document.querySelectorAll(".order-tab").forEach(btn => {
+    btn.style.background = "transparent";
+    btn.style.color = "#94a3b8";
+});
+
+if (button) {
+    button.style.background = "#f59e0b";
+    button.style.color = "#111827";
+} 
     const orders = window.allOrders || [];
 
     const filtered = orders.filter(order => {
