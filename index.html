@@ -690,7 +690,9 @@ if (orders.length === 0) {
 const ordersPage = document.getElementById("ordersPage");
 const ordersList = document.getElementById("ordersList");
 window.allOrders = orders;
-ordersList.innerHTML = orders.map(order => {
+ordersList.innerHTML = orders
+  .filter(order => ["pending", "ongoing"].includes((order.status || "").toLowerCase()))
+  .map(order => {
   return `
     <div style="
       background:#111827;
