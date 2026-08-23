@@ -724,7 +724,9 @@ document.getElementById("homePage").style.display = "none";
         alert("Server connection failed.");
     }
 }
-function filterOrders(type) {
+function filterOrders(type, button) {
+  document.querySelectorAll(".order-tab").forEach(btn => btn.classList.remove("active"));
+if (button) button.classList.add("active");
     const orders = window.allOrders || [];
 
     const filtered = orders.filter(order => {
