@@ -644,7 +644,18 @@
         }
 
         console.log("Orders:", result);
-        alert("Orders loaded successfully ✅");
+      const orders = result.orders || [];
+
+if (orders.length === 0) {
+  alert("No orders found.");
+  return;
+}
+
+const orderText = orders.map(order => {
+  return `${order.type.toUpperCase()} | ${order.amount_usdt} USDT | ${order.status}`;
+}).join("\n");
+
+alert(orderText);
     } catch (error) {
         console.error(error);
         alert("Server connection failed.");
