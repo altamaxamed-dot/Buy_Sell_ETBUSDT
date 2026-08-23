@@ -398,6 +398,10 @@
 
   <div id="ordersPage" style="display:none;">
   <div class="section-title">My Orders</div>
+    <div style="display:flex; gap:10px; margin:15px 0;">
+  <button onclick="filterOrders('ongoing')" id="ongoingBtn">Ongoing</button>
+  <button onclick="filterOrders('completed')" id="completedBtn">Completed</button>
+</div>
   <div id="ordersList"></div>
 </div>
   <div class="bottom-nav">
@@ -659,7 +663,7 @@ if (orders.length === 0) {
 
 const ordersPage = document.getElementById("ordersPage");
 const ordersList = document.getElementById("ordersList");
-
+window.allOrders = orders;
 ordersList.innerHTML = orders.map(order => {
   return `
     <div style="
@@ -692,7 +696,52 @@ document.getElementById("homePage").style.display = "none";
         alert("Server connection failed.");
     }
 }
+function filterOrders(type) {
+    const orders = window.allOrders || [];
 
+    const filtered = orders.filter(order => {
+        const status = (order.status || "").toLowerCase();
+
+        if (type === "ongoing") {
+            return status === "pending" || status === "ongoing";
+        }
+
+        if (type === "completed") {
+            return status === "completed";
+        }
+
+        return true;
+    });
+
+    const ordersList = document.getElementById("ordersList");
+
+    ordersList.innerHTML = filtered.map(order => `
+        <div style="
+            background:#111827;
+            border:1px solid #334155;
+            border-radius:16px;
+            padding:16px;
+            margin-bottom:12px;
+        ">
+            <div style="display:flex;justify-content:space-between;">
+                <strong>${(order.type || order.mode || "").toUpperCase()}</strong>
+                <span>${order.status || ""}</span>
+            </div>
+
+            <div style="margin-top:12px;">
+                ${order.amount_usdt || 0} USDT
+            </div>
+
+            <div style="margin-top:6px;color:#94a3b8;">
+                ${order.amount_etb || 0} ETB
+            </div>
+        </div>
+    `).join("");
+
+    if (filtered.length === 0) {
+        ordersList.innerHTML = "<div>No orders found.</div>";
+    }
+}
   function openTrade(index) {
 
     const offer =
