@@ -694,7 +694,8 @@ ordersList.innerHTML = orders
   .filter(order => ["pending", "ongoing"].includes((order.status || "").toLowerCase()))
   .map(order => {
   return `
-    <div style="
+   <div onclick="openOrderDetails('${order.id}')" style="
+    cursor:pointer;
       background:#111827;
       border:1px solid #334155;
       border-radius:16px;
@@ -778,6 +779,27 @@ if (button) {
     if (filtered.length === 0) {
         ordersList.innerHTML = "<div>No orders found.</div>";
     }
+}
+  function openOrderDetails(orderId) {
+    const orders = window.allOrders || [];
+    const order = orders.find(o => String(o.id) === String(orderId));
+
+    if (!order) {
+        alert("Order not found.");
+        return;
+    }
+
+    const details = `
+Order Details
+
+Type: ${(order.type || "").toUpperCase()}
+Status: ${order.status || ""}
+Amount: ${order.amount_usdt || 0} USDT
+ETB: ${order.amount_etb || 0} ETB
+Order ID: ${order.id || ""}
+    `;
+
+    alert(details);
 }
   function openTrade(index) {
 
