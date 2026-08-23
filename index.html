@@ -682,7 +682,9 @@ ordersList.innerHTML = orders.map(order => {
   `;
 }).join("");
 
-ordersPage.style.display = "block";
+document.getElementById("offers").style.display = "none";
+document.querySelector(".tabs").style.display = "none";
+      ordersPage.style.display = "block";
     } catch (error) {
         console.error(error);
         alert("Server connection failed.");
