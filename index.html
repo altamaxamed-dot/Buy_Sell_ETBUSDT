@@ -738,7 +738,7 @@ if (button) {
     const orders = window.allOrders || [];
 
     const filtered = orders.filter(order => {
-        const status = (order.status || "").toLowerCase();
+        const status = String(order.status || "").trim().toLowerCase();
 
         if (type === "ongoing") {
             return status === "pending" || status === "ongoing";
