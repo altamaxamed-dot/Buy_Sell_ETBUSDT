@@ -346,7 +346,7 @@
     </div>
     <div class="subtitle">Telegram P2P Marketplace</div>
   </header>
-
+<div id="homePage">
   <div class="balance-card">
     <div class="balance-label">Wallet Balance</div>
    <div class="balance" id="walletBalance">0.00 USDT</div> 
@@ -389,6 +389,7 @@
     </div>
 
     <div id="offers"></div>
+   </div> 
 <div id="ordersPage" style="display:none;">
   <div class="section-title">My Orders</div>
   <div id="ordersList"></div>
@@ -682,8 +683,7 @@ ordersList.innerHTML = orders.map(order => {
   `;
 }).join("");
 
-document.getElementById("offers").style.display = "none";
-document.querySelector(".tabs").style.display = "none";
+document.getElementById("homePage").style.display = "none";
       ordersPage.style.display = "block";
     } catch (error) {
         console.error(error);
