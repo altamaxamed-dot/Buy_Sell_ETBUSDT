@@ -799,7 +799,59 @@ ETB: ${order.amount_etb || 0} ETB
 Order ID: ${order.id || ""}
     `;
 
-    alert(details);
+   const modal = document.createElement("div");
+
+modal.style.cssText = `
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:20px;
+`;
+
+modal.innerHTML = `
+  <div style="
+    width:100%;
+    max-width:380px;
+    background:#111827;
+    border:1px solid #334155;
+    border-radius:20px;
+    padding:24px;
+    color:white;
+  ">
+    <h2 style="margin:0 0 20px;">Order Details</h2>
+
+    <div style="line-height:2;">
+      <div><b>Type:</b> ${(order.type || "").toUpperCase()}</div>
+      <div><b>Status:</b> ${order.status || ""}</div>
+      <div><b>Amount:</b> ${order.amount_usdt || 0} USDT</div>
+      <div><b>ETB:</b> ${order.amount_etb || 0} ETB</div>
+      <div><b>Order ID:</b> ${order.id || ""}</div>
+    </div>
+
+    <button onclick="this.closest('[data-order-modal]').remove()"
+      style="
+        width:100%;
+        margin-top:22px;
+        padding:14px;
+        border:0;
+        border-radius:12px;
+        background:#d88900;
+        color:#111827;
+        font-size:16px;
+        font-weight:bold;
+        cursor:pointer;
+      ">
+      Close
+    </button>
+  </div>
+`;
+
+modal.setAttribute("data-order-modal", "");
+document.body.appendChild(modal);
 }
   function openTrade(index) {
 
