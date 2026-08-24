@@ -978,7 +978,9 @@ modal.innerHTML = `
         <strong>${order.amount_etb || 0} ETB</strong>
       </div>
     </div>
-
+<div style="border-top:1px solid #343b46;margin-top:16px;padding-top:14px;color:#22d3a7;font-size:14px;">
+  ${isCompleted ? "✓ Trade completed successfully" : "⏳ Waiting for completion"}
+</div>
     <button onclick="this.closest('[data-order-modal]').remove()" style="
       width:100%;
       margin-top:18px;
