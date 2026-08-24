@@ -924,40 +924,78 @@ modal.innerHTML = `
   <div style="
     width:100%;
     max-width:380px;
-    background:#111827;
-    border:1px solid #334155;
-    border-radius:20px;
-    padding:24px;
-    color:white;
+    background:#1f242c;
+    border:1px solid #343b46;
+    border-radius:16px;
+    padding:18px;
+    color:#f3f4f6;
   ">
-    <h2 style="margin:0 0 20px;">Order Details</h2>
 
-    <div style="line-height:2;">
-      <div><b>Type:</b> ${(order.type || "").toUpperCase()}</div>
-      <div><b>Status:</b> ${order.status || ""}</div>
-      <div><b>Amount:</b> ${order.amount_usdt || 0} USDT</div>
-      <div><b>ETB:</b> ${order.amount_etb || 0} ETB</div>
-      <div><b>Order ID:</b> ${order.id || ""}</div>
+    <div style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:18px;
+    ">
+      <div>
+        <div style="font-size:20px;font-weight:700;">
+          Order Details
+        </div>
+        <div style="font-size:13px;color:#9aa3b2;margin-top:4px;">
+          Order #${String(order.id || "").slice(0,8)}
+        </div>
+      </div>
+
+      <div style="
+        padding:6px 10px;
+        border-radius:8px;
+        font-size:13px;
+        font-weight:600;
+        background:${String(order.status || "").toLowerCase() === "completed" ? "#063f35" : "#4a3b05"};
+        color:${String(order.status || "").toLowerCase() === "completed" ? "#19d3a2" : "#ffd633"};
+      ">
+        ${String(order.status || "Pending")}
+      </div>
     </div>
 
-    <button onclick="this.closest('[data-order-modal]').remove()"
-      style="
-        width:100%;
-        margin-top:22px;
-        padding:14px;
-        border:0;
-        border-radius:12px;
-        background:#d88900;
-        color:#111827;
-        font-size:16px;
-        font-weight:bold;
-        cursor:pointer;
-      ">
+    <div style="
+      border-top:1px solid #343b46;
+      border-bottom:1px solid #343b46;
+      padding:16px 0;
+    ">
+      <div style="display:flex;justify-content:space-between;margin-bottom:14px;">
+        <span style="color:#9aa3b2;">Type</span>
+        <strong>${(order.type || order.mode || "").toUpperCase()}</strong>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;margin-bottom:14px;">
+        <span style="color:#9aa3b2;">Amount</span>
+        <strong>${order.amount_usdt || 0} USDT</strong>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;">
+        <span style="color:#9aa3b2;">ETB Amount</span>
+        <strong>${order.amount_etb || 0} ETB</strong>
+      </div>
+    </div>
+
+    <button onclick="this.closest('[data-order-modal]').remove()" style="
+      width:100%;
+      margin-top:18px;
+      padding:12px;
+      border:0;
+      border-radius:10px;
+      background:#d88900;
+      color:#111827;
+      font-size:15px;
+      font-weight:700;
+      cursor:pointer;
+    ">
       Close
     </button>
+
   </div>
 `;
-
 modal.setAttribute("data-order-modal", "");
 document.body.appendChild(modal);
 }
