@@ -753,29 +753,137 @@ if (button) {
 
     const ordersList = document.getElementById("ordersList");
 
-    ordersList.innerHTML = filtered.map(order => `
-        <div style="
-            background:#111827;
-            border:1px solid #334155;
-            border-radius:16px;
-            padding:16px;
-            margin-bottom:12px;
-        ">
-            <div style="display:flex;justify-content:space-between;">
-                <strong>${(order.type || order.mode || "").toUpperCase()}</strong>
-                <span>${order.status || ""}</span>
-            </div>
+    ordersList.innerHTML = filtered.map(order => {
+  const status = String(order.status || "").trim().toLowerCase();
+  const isCompleted = status === "completed";
 
-            <div style="margin-top:12px;">
-                ${order.amount_usdt || 0} USDT
-            </div>
+  const typeLabel = (order.type || order.mode || "ORDER").toUpperCase();
+  const orderId = String(order.id || "").slice(0, 8);
+  const dateText = order.created_at
+    ? new Date(order.created_at).toLocaleDateString("en-GB")
+    : "";
 
-            <div style="margin-top:6px;color:#94a3b8;">
-                ${order.amount_etb || 0} ETB
-            </div>
+  return `
+    <div onclick="openOrderDetails('${order.id}')" style="
+      background:#1f242c;
+      border:1px solid #343b46;
+      border-radius:16px;
+      padding:18px;
+      margin-bottom:14px;
+      cursor:pointer;
+      color:#f3f4f6;
+    ">
+
+      <div style="
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+        margin-bottom:10px;
+      ">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+
+          <span style="
+            padding:6px 10px;
+            border-radius:9px;
+            font-size:13px;
+            font-weight:700;
+            background:${isCompleted ? "#073f34" : "#3f3410"};
+            color:${isCompleted ? "#18d89b" : "#ffd633"};
+            border:1px solid ${isCompleted ? "#0c765f" : "#6d5a13"};
+          ">
+            ${isCompleted ? "Completed" : typeLabel}
+          </span>
+
+          ${!isCompleted ? `
+          <span style="
+            padding:6px 10px;
+            border-radius:9px;
+            font-size:13px;
+            font-weight:700;
+            background:#3f3410;
+            color:#ffd633;
+            border:1px solid #6d5a13;
+          ">
+            ${status === "ongoing" ? "Ongoing" : "Pending Response"}
+          </span>
+          ` : ""}
+
         </div>
-    `).join("");
 
+        <span style="
+          color:#667080;
+          font-size:30px;
+          line-height:1;
+        ">›</span>
+      </div>
+
+      <div style="
+        color:#9aa3b2;
+        font-size:14px;
+        margin-bottom:18px;
+      ">
+        Order #${orderId}${dateText ? ` • ${dateText}` : ""}
+      </div>
+
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-end;
+        gap:20px;
+      ">
+
+        <div>
+          <div style="
+            color:#9aa3b2;
+            font-size:14px;
+            margin-bottom:8px;
+          ">
+            ${isCompleted ? "Trade amount" : "Order amount"}
+          </div>
+
+          <div style="
+            font-size:18px;
+            font-weight:700;
+          ">
+            ${(order.type || order.mode || "").toUpperCase()}
+          </div>
+        </div>
+
+        <div style="text-align:right;">
+          <div style="
+            font-size:22px;
+            font-weight:700;
+            color:#f8fafc;
+          ">
+            ${order.amount_usdt || 0} USDT
+          </div>
+
+          <div style="
+            margin-top:5px;
+            color:#9aa3b2;
+            font-size:15px;
+          ">
+            ≈ ${order.amount_etb || 0} ETB
+          </div>
+        </div>
+      </div>
+
+      ${isCompleted ? `
+        <div style="
+          border-top:1px solid #343b46;
+          margin-top:18px;
+          padding-top:14px;
+          color:#14d89a;
+          font-size:15px;
+        ">
+          ✓ Trade completed successfully
+        </div>
+      ` : ""}
+
+    </div>
+  `;
+}).join("");
     if (filtered.length === 0) {
         ordersList.innerHTML = "<div>No orders found.</div>";
     }
