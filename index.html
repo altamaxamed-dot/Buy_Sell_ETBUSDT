@@ -891,7 +891,8 @@ if (button) {
   function openOrderDetails(orderId) {
     const orders = window.allOrders || [];
     const order = orders.find(o => String(o.id) === String(orderId));
-
+const isCompleted =
+  String(order?.status || "").trim().toLowerCase() === "completed";
     if (!order) {
         alert("Order not found.");
         return;
