@@ -1294,9 +1294,92 @@ function openWallet() {
     document.getElementById("ordersPage").style.display = "none";
     document.getElementById("walletPage").style.display = "block";
 }
-  function openDeposit() {
-    alert("Deposit page coming next");
-}
+ function openDeposit() {
+  const oldModal = document.getElementById("depositModal");
+  if (oldModal) oldModal.remove();
+
+  const modal = document.createElement("div");
+  modal.id = "depositModal";
+
+  modal.style.cssText = `
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:9999;
+  `;
+
+  modal.innerHTML = `
+    <div style="
+      width:100%;
+      max-width:380px;
+      background:#1f242c;
+      border:1px solid #343b46;
+      border-radius:18px;
+      padding:20px;
+      color:white;
+    ">
+
+      <div style="font-size:24px;font-weight:700;">
+        Deposit USDT
+      </div>
+
+      <div style="color:#9aa3b2;margin-top:6px;">
+        Select network
+      </div>
+
+      <select id="depositNetwork" style="
+        width:100%;
+        margin-top:16px;
+        padding:14px;
+        border-radius:10px;
+        border:1px solid #343b46;
+        background:#111827;
+        color:white;
+        font-size:16px;
+      ">
+        <option value="BEP20">BNB Smart Chain (BEP20)</option>
+        <option value="TRC20">TRON (TRC20)</option>
+        <option value="ERC20">Ethereum (ERC20)</option>
+      </select>
+
+      <div style="color:#9aa3b2;margin-top:20px;">
+        Deposit Address
+      </div>
+
+      <div id="depositAddress" style="
+        margin-top:8px;
+        padding:14px;
+        background:#111827;
+        border-radius:10px;
+        word-break:break-all;
+      ">
+        Address will appear here
+      </div>
+
+      <button onclick="document.getElementById('depositModal').remove()" style="
+        width:100%;
+        margin-top:20px;
+        padding:14px;
+        border:0;
+        border-radius:10px;
+        background:#f59e0b;
+        color:#111827;
+        font-size:16px;
+        font-weight:700;
+      ">
+        Close
+      </button>
+
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+} 
+
 function openProfile() {
   setActiveNav("profile");
   alert("Profile page coming next");
