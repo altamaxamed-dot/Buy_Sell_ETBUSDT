@@ -1248,8 +1248,15 @@ async function createDemoOrder() {
 document.querySelector(".balance").textContent =
   Number(result.user.balance_usdt || 0).toFixed(2) + " USDT";
 
-document.querySelector(".etb-balance").textContent =
-  "≈ " + Number(result.user.balance_etb || 0).toLocaleString() + " ETB";
+  document.querySelector(".etb-balance").textContent =
+    "≈ " + Number(result.user.balance_etb || 0).toLocaleString() + " ETB";
+
+document.getElementById("walletUsdtBalance").textContent =
+    Number(result.user.balance_usdt || 0).toFixed(2);
+
+document.getElementById("walletEtbBalance").textContent =
+    Number(result.user.balance_etb || 0).toLocaleString();
+
 
 document.querySelector(".balance-label").textContent =
   "Wallet Balance";
