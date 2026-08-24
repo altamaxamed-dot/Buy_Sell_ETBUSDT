@@ -464,7 +464,7 @@
   </div>
 
   <div style="display:flex; gap:12px; margin-top:18px;">
-    <button style="
+    <button onclick="openDeposit()" style="
       flex:1;
       padding:14px;
       border:0;
@@ -1293,6 +1293,9 @@ function openWallet() {
     document.getElementById("homePage").style.display = "none";
     document.getElementById("ordersPage").style.display = "none";
     document.getElementById("walletPage").style.display = "block";
+}
+  function openDeposit() {
+    alert("Deposit page coming next");
 }
 function openProfile() {
   setActiveNav("profile");
