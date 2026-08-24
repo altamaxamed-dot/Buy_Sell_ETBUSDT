@@ -431,22 +431,22 @@
   <div id="ordersList"></div>
 </div>
   <div class="bottom-nav">
- <div class="nav-item active" onclick="openHome()">
+<div class="nav-item active" onclick="setActiveNavItem(this); openHome()">
     <span class="nav-icon">🏠</span>
     Home
   </div>
 
-  <div class="nav-item" onclick="openOrders()">
+ <div class="nav-item" onclick="setActiveNavItem(this); openOrders()">
     <span class="nav-icon">📋</span>
     Orders
   </div>
 
-  <div class="nav-item" onclick="openWallet()">
+<div class="nav-item" onclick="setActiveNavItem(this); openWallet()"> 
     <span class="nav-icon">💰</span>
     Wallet
   </div>
 
-  <div class="nav-item" onclick="openProfile()">
+  <div class="nav-item" onclick="setActiveNavItem(this); openProfile()">
     <span class="nav-icon">👤</span>
     Profile
   </div>
@@ -1217,6 +1217,13 @@ function openProfile() {
   setActiveNav("profile");
   alert("Profile page coming next");
 } 
+function setActiveNavItem(item) {
+  document.querySelectorAll(".bottom-nav .nav-item").forEach(nav => {
+    nav.classList.remove("active");
+  });
+
+  item.classList.add("active");
+}  
 </script>
 
 </body>
