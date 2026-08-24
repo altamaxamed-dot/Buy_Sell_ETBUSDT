@@ -982,6 +982,22 @@ modal.innerHTML = `
 <div style="border-top:1px solid #343b46;margin-top:16px;padding-top:14px;color:#22d3a7;font-size:14px;">
   ${isCompleted ? "✓ Trade completed successfully" : "⏳ Waiting for completion"}
 </div>
+${!isCompleted ? `
+<button onclick="event.stopPropagation(); alert('Payment flow coming next')" style="
+  width:100%;
+  margin-top:14px;
+  padding:12px;
+  border:0;
+  border-radius:10px;
+  background:#f59e0b;
+  color:#111827;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+">
+  I have paid
+</button>
+` : ""}
     <button onclick="this.closest('[data-order-modal]').remove()" style="
       width:100%;
       margin-top:18px;
