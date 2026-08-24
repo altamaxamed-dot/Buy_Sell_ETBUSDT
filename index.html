@@ -720,6 +720,9 @@
     renderOffers();
   }
   async function openOrders() {
+    document.getElementById("homePage").style.display = "none";
+document.getElementById("walletPage").style.display = "none";
+document.getElementById("ordersPage").style.display = "block";
     const tg = window.Telegram?.WebApp;
 
     if (!tg || !tg.initData) {
@@ -1274,15 +1277,15 @@ document.querySelector(".balance-label").textContent =
 function openHome() {
   document.getElementById("homePage").style.display = "block";
   document.getElementById("ordersPage").style.display = "none";
-
+document.getElementById("walletPage").style.display = "none";
   setActiveNav("home");
 }
 
 function openWallet() {
-  setActiveNav("wallet");
-  alert("Wallet page coming next");
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("ordersPage").style.display = "none";
+    document.getElementById("walletPage").style.display = "block";
 }
-
 function openProfile() {
   setActiveNav("profile");
   alert("Profile page coming next");
