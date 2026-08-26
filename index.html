@@ -1535,6 +1535,7 @@ async function createDepositRequest() {
   }
 }
 async function loadDepositHistory() {
+const tg = window.Telegram?.WebApp;  
   const container = document.getElementById("depositHistory");
 
   if (!container) return;
