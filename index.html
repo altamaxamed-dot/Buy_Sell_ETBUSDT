@@ -488,27 +488,61 @@
     </button>
   </div>
 
-  <div class="section-title" style="margin-top:28px;">
-    Transaction History
-  </div>
+<div style="
+  display:flex;
+  gap:10px;
+  margin-top:28px;
+  margin-bottom:12px;
+">
+  <button
+    id="transactionsTab"
+    onclick="showWalletHistoryTab('transactions')"
+    style="
+      flex:1;
+      padding:10px;
+      border:none;
+      border-radius:10px;
+      background:#f5a623;
+      color:#111827;
+      font-weight:700;
+      cursor:pointer;
+    ">
+    Transactions
+  </button>
 
+  <button
+    id="depositsTab"
+    onclick="showWalletHistoryTab('deposits')"
+    style="
+      flex:1;
+      padding:10px;
+      border:1px solid #f5a623;
+      border-radius:10px;
+      background:transparent;
+      color:#f5a623;
+      font-weight:700;
+      cursor:pointer;
+    ">
+    Deposits
+  </button>
+</div>
+
+<div id="transactionsSection">
   <div id="walletTransactions" style="
     margin-top:12px;
     color:#9aa3b2;
   ">
     No transactions yet
   </div>
- <div class="section-title" style="margin-top:28px;">
-  Deposit History
 </div>
-
+<div id="depositsSection" style="display:none;">
 <div id="depositHistory" style="
   margin-top:12px;
   color:#9aa3b2;
 ">
   Loading deposits...
-</div> 
-
+</div>
+</div>
 </div>
   </div>
   <div class="bottom-nav">
@@ -1749,6 +1783,32 @@ const tg = window.Telegram?.WebApp;
     container.innerHTML = "Could not load transaction history.";
   }
 }
+function showWalletHistoryTab(tab) {
+  const transactionsSection = document.getElementById("transactionsSection");
+  const depositsSection = document.getElementById("depositsSection");
+  const transactionsTab = document.getElementById("transactionsTab");
+  const depositsTab = document.getElementById("depositsTab");
+
+  if (tab === "transactions") {
+    transactionsSection.style.display = "block";
+    depositsSection.style.display = "none";
+
+    transactionsTab.style.background = "#f5a623";
+    transactionsTab.style.color = "#111827";
+
+    depositsTab.style.background = "transparent";
+    depositsTab.style.color = "#f5a623";
+  } else {
+    transactionsSection.style.display = "none";
+    depositsSection.style.display = "block";
+
+    depositsTab.style.background = "#f5a623";
+    depositsTab.style.color = "#111827";
+
+    transactionsTab.style.background = "transparent";
+    transactionsTab.style.color = "#f5a623";
+  }
+}  
 function openProfile() {
   setActiveNav("profile");
   alert("Profile page coming next");
