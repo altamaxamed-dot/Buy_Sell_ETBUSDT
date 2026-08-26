@@ -1944,6 +1944,27 @@ function showWalletHistoryTab(tab) {
 
     document.body.appendChild(modal);
 } 
+async function submitWithdraw() {
+  const address = document.getElementById("withdrawAddress")?.value.trim();
+  const amount = Number(document.getElementById("withdrawAmount")?.value);
+
+  if (!address) {
+    alert("Please enter your BEP20 wallet address.");
+    return;
+  }
+
+  if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
+    alert("Invalid BEP20 wallet address.");
+    return;
+  }
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+    alert("Please enter a valid withdrawal amount.");
+    return;
+  }
+
+  alert("Withdraw button is working.");
+}  
 function openProfile() {
   setActiveNav("profile");
   alert("Profile page coming next");
