@@ -1381,7 +1381,8 @@ function openWallet() {
       ">
       0xb703806b2bf40c23df0558f03d6f0f030a5b2c3c  
       </div>
-<button onclick="navigator.clipboard.writeText(document.getElementById('depositAddress').innerText); alert('Address copied!');"
+onclick="navigator.clipboard.writeText('0xb703806b2bf40c23df0558f03d6f0f030a5b2c3c').then(() => alert('Address copied!'))"
+
 style="
   width:100%;
   margin-top:10px;
