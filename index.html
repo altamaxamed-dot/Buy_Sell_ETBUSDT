@@ -1926,7 +1926,7 @@ function showWalletHistoryTab(tab) {
                 </span>
             </div>
 
-            <button onclick="alert('CLICK WORKS')" style="
+            <button onclick="submitWithdraw()" style="
                 width:100%;
                 padding:14px;
                 border:none;
@@ -1945,6 +1945,7 @@ function showWalletHistoryTab(tab) {
     document.body.appendChild(modal);
 } 
 async function submitWithdraw() {
+  alert("FUNCTION STARTED");
   const address = document.getElementById("withdrawAddress")?.value.trim();
   const amount = Number(document.getElementById("withdrawAmount")?.value);
 
