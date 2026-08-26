@@ -1945,9 +1945,19 @@ function showWalletHistoryTab(tab) {
     document.body.appendChild(modal);
 } 
 async function submitWithdraw() {
-  alert("FUNCTION STARTED");
-  const address = document.getElementById("withdrawAddress")?.value.trim();
-  const amount = Number(document.getElementById("withdrawAmount")?.value);
+  const tg = window.Telegram?.WebApp;
+
+  const address =
+    document.getElementById("withdrawAddress")?.value.trim();
+
+  const amount = Number(
+    document.getElementById("withdrawAmount")?.value
+  );
+
+  if (!tg?.initData) {
+    alert("Please open this app from Telegram.");
+    return;
+  }
 
   if (!address) {
     alert("Please enter your BEP20 wallet address.");
@@ -1964,7 +1974,54 @@ async function submitWithdraw() {
     return;
   }
 
-  alert("Withdraw button is working.");
+  try {
+    const response = await fetch(
+      "https://bcfaznoplvxxseyiarhe.supabase.co/functions/v1/create-withdraw-request",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          initData: tg.initData,
+          address: address,
+          amount: amount
+        })
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(
+        result.error || "Withdrawal request failed."
+      );
+    }
+
+    alert(
+      "Withdrawal request submitted successfully.\n" +
+      amount +
+      " USDT is now pending."
+    );
+
+    document.getElementById("withdrawModal")?.remove();
+
+    await loadTransactionHistory();
+
+    // Refresh wallet balance if this function already exists
+    if (typeof loadWallet === "function") {
+      await loadWallet();
+    }
+
+  } catch (error) {
+    console.error("Withdraw error:", error);
+
+    alert(
+      error?.message ||
+      "Could not submit withdrawal request."
+    );
+  }
+}
 }  
 function openProfile() {
   setActiveNav("profile");
