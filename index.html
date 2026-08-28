@@ -892,7 +892,7 @@
         <div class="profile-status-item">
           <div class="status-icon">🛡️</div>
           <span>Account Status</span>
-          <strong class="green-text">Active</strong>
+          <strong class="green-text" id="profileAccountStatus">Active</strong>
         </div>
 
         <div class="profile-status-item">
@@ -2486,7 +2486,7 @@ async function submitWithdraw() {
     );
   }
 } 
-function openProfile() {
+async function openProfile() {
   setActiveNav("profile");
 
   const modal = document.getElementById("profileModal");
@@ -2515,6 +2515,109 @@ function openProfile() {
   if (modal) {
     modal.style.display = "flex";
   }
+ try {
+  const tg = window.Telegram?.WebApp;
+  const initData = tg?.initData || "";
+
+  if (!initData) {
+    console.error("Telegram initData missing");
+    return;
+  }
+
+  const response = await fetch(
+    "https://bcfaznoplvxxseyiarhe.supabase.co/functions/v1/profile-data",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        initData: initData
+      })
+    }
+  );
+
+  const result = await response.json();
+
+  if (!response.ok || !result.success) {
+    throw new Error(result.error || "Could not load profile data");
+  }
+
+  const profile = result.profile || {};
+  const stats = result.stats || {};
+
+  // KYC STATUS
+  const kycStatus = String(
+    profile.kyc_status || "not_submitted"
+  ).toUpperCase();
+
+  const kycEl = document.getElementById("profileKycStatus");
+  if (kycEl) {
+    kycEl.textContent = kycStatus;
+  }
+
+  // KYC BADGE
+  const badge = document.getElementById("profileVerifiedBadge");
+  if (badge) {
+    const prettyKyc = String(
+      profile.kyc_status || "not_submitted"
+    )
+      .replaceAll("_", " ")
+      .replace(/\b\w/g, c => c.toUpperCase());
+
+    badge.textContent = "✓ KYC " + prettyKyc;
+  }
+
+  // MEMBER SINCE
+  const memberSince = document.getElementById("profileMemberSince");
+  if (memberSince) {
+    memberSince.textContent = profile.member_since || "—";
+  }
+
+  // ACCOUNT STATUS
+  const accountStatus =
+    document.getElementById("profileAccountStatus");
+
+  if (accountStatus) {
+    accountStatus.textContent =
+      String(profile.account_status || "active").toUpperCase();
+  }
+
+  // TRADE STATS
+  const totalTrades =
+    document.getElementById("profileTotalTrades");
+
+  const completedTrades =
+    document.getElementById("profileCompletedTrades");
+
+  const cancelledTrades =
+    document.getElementById("profileCancelledTrades");
+
+  const successRate =
+    document.getElementById("profileSuccessRate");
+
+  if (totalTrades) {
+    totalTrades.textContent = stats.total_trades ?? 0;
+  }
+
+  if (completedTrades) {
+    completedTrades.textContent = stats.completed ?? 0;
+  }
+
+  if (cancelledTrades) {
+    cancelledTrades.textContent = stats.cancelled ?? 0;
+  }
+
+  if (successRate) {
+    successRate.textContent =
+      `${stats.success_rate ?? 100}%`;
+  }
+
+  console.log("PROFILE DATA:", result);
+
+} catch (error) {
+  console.error("Profile data error:", error);
+} 
 }
 
 function toggleKycDetails() {
