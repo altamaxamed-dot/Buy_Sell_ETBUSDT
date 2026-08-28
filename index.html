@@ -358,6 +358,295 @@
   background: #f59e0b;
   color: #111827;
 }
+ /* ===== PROFILE PAGE ===== */
+
+#profileModal {
+  align-items: flex-start;
+  overflow-y: auto;
+  background: #071019;
+}
+
+#profileModal .profile-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #071019;
+  color: #f4f6f8;
+  padding: 22px 18px 110px;
+  box-sizing: border-box;
+}
+
+.profile-page-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.profile-page-header h2 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.profile-page-header p {
+  margin: 4px 0 0;
+  color: #8994a5;
+  font-size: 14px;
+}
+
+.profile-back {
+  border: 0;
+  background: transparent;
+  color: #9aa5b4;
+  font-size: 42px;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+}
+
+.profile-main-card,
+.profile-stats,
+.profile-menu button,
+.kyc-details-card {
+  background: #101b29;
+  border: 1px solid #233043;
+  border-radius: 18px;
+}
+
+.profile-main-card {
+  padding: 22px;
+}
+
+.profile-user-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.profile-avatar {
+  width: 82px;
+  height: 82px;
+  min-width: 82px;
+  border-radius: 50%;
+  background: #f4c928;
+  color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  font-weight: 800;
+}
+
+.profile-user-info h2 {
+  margin: 0;
+  font-size: 25px;
+}
+
+.profile-username {
+  margin-top: 5px;
+  color: #929dad;
+  font-size: 16px;
+}
+
+.verified-badge {
+  display: inline-block;
+  margin-top: 9px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  color: #12d98b;
+  background: rgba(18,217,139,.12);
+  border: 1px solid rgba(18,217,139,.35);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.profile-status-grid {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid #263549;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.profile-status-item {
+  padding: 16px 8px;
+  text-align: center;
+  border-right: 1px solid #263549;
+}
+
+.profile-status-item:last-child {
+  border-right: 0;
+}
+
+.profile-status-item span,
+.profile-status-item strong {
+  display: block;
+}
+
+.profile-status-item span {
+  color: #929dad;
+  font-size: 12px;
+  margin: 6px 0;
+}
+
+.profile-status-item strong {
+  font-size: 15px;
+}
+
+.status-icon {
+  font-size: 22px;
+}
+
+.green-text {
+  color: #12d98b;
+}
+
+.profile-section-title {
+  margin: 25px 4px 12px;
+  font-size: 19px;
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 18px 8px;
+}
+
+.profile-stats > div {
+  text-align: center;
+  border-right: 1px solid #263549;
+}
+
+.profile-stats > div:last-child {
+  border-right: 0;
+}
+
+.profile-stats span,
+.profile-stats strong,
+.profile-stats small {
+  display: block;
+}
+
+.profile-stats .stat-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.profile-stats strong {
+  font-size: 23px;
+  margin-bottom: 5px;
+}
+
+.profile-stats small {
+  color: #929dad;
+  font-size: 12px;
+}
+
+.profile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profile-menu button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 42px 1fr 24px;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  color: #f4f6f8;
+  text-align: left;
+  cursor: pointer;
+}
+
+.profile-menu button span:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-menu b {
+  font-size: 16px;
+}
+
+.profile-menu small {
+  margin-top: 3px;
+  color: #8f9aaa;
+  font-size: 12px;
+}
+
+.menu-icon {
+  font-size: 24px;
+}
+
+.menu-arrow {
+  color: #8f9aaa;
+  font-size: 30px;
+}
+
+.kyc-details-card {
+  margin-top: 16px;
+  padding: 18px;
+}
+
+.kyc-details-card h3 {
+  margin-top: 0;
+}
+
+.kyc-details-card input,
+.kyc-details-card select {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #2b394c;
+  background: #0b1521;
+  color: white;
+  font-size: 15px;
+}
+
+#kycStatus {
+  margin: 4px 0 14px;
+  color: #f2c94c;
+}
+
+.kyc-submit-btn {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 12px;
+  background: #f4c928;
+  color: #111;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+@media (max-width: 430px) {
+  .profile-page {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .profile-avatar {
+    width: 68px;
+    height: 68px;
+    min-width: 68px;
+    font-size: 30px;
+  }
+
+  .profile-user-info h2 {
+    font-size: 20px;
+  }
+
+  .profile-status-item {
+    padding: 13px 4px;
+  }
+
+  .profile-stats strong {
+    font-size: 20px;
+  }
+}   
   </style>
 </head>
 
@@ -567,82 +856,182 @@
   </div>
 </div>
 
-<!-- PROFILE / KYC MODAL -->
+<!-- PROFILE MODAL -->
 <div class="modal" id="profileModal">
-  <div class="modal-box">
+  <div class="profile-page">
 
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
-      <h2 style="margin:0;">Profile Verification</h2>
-      <button
-        onclick="closeProfile()"
-        style="background:none;border:none;color:#aaa;font-size:28px;cursor:pointer;"
-      >
-        ×
+    <div class="profile-page-header">
+      <button class="profile-back" onclick="closeProfile()">‹</button>
+      <div>
+        <h2>Profile</h2>
+        <p>Manage your account and settings</p>
+      </div>
+    </div>
+
+    <div class="profile-main-card">
+      <div class="profile-user-row">
+        <div class="profile-avatar" id="profileAvatar">M</div>
+
+        <div class="profile-user-info">
+          <h2 id="profileFullName">Telegram User</h2>
+          <div class="profile-username" id="profileUsername">@username</div>
+
+          <div class="verified-badge" id="profileVerifiedBadge">
+            ✓ KYC Pending
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-status-grid">
+        <div class="profile-status-item">
+          <div class="status-icon">📅</div>
+          <span>Member Since</span>
+          <strong id="profileMemberSince">2026</strong>
+        </div>
+
+        <div class="profile-status-item">
+          <div class="status-icon">🛡️</div>
+          <span>Account Status</span>
+          <strong class="green-text">Active</strong>
+        </div>
+
+        <div class="profile-status-item">
+          <div class="status-icon">👤</div>
+          <span>KYC Status</span>
+          <strong id="profileKycStatus">PENDING</strong>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="profile-section-title">Account Overview</h3>
+
+    <div class="profile-stats">
+      <div>
+        <span class="stat-icon">↔</span>
+        <strong id="profileTotalTrades">0</strong>
+        <small>Total Trades</small>
+      </div>
+
+      <div>
+        <span class="stat-icon">✓</span>
+        <strong id="profileCompletedTrades">0</strong>
+        <small>Completed</small>
+      </div>
+
+      <div>
+        <span class="stat-icon">⊗</span>
+        <strong id="profileCancelledTrades">0</strong>
+        <small>Cancelled</small>
+      </div>
+
+      <div>
+        <span class="stat-icon">↗</span>
+        <strong id="profileSuccessRate">100%</strong>
+        <small>Success Rate</small>
+      </div>
+    </div>
+
+    <h3 class="profile-section-title">Quick Access</h3>
+
+    <div class="profile-menu">
+
+      <button onclick="toggleKycDetails()">
+        <span class="menu-icon">👤</span>
+        <span>
+          <b>View Profile</b>
+          <small>See your profile details</small>
+        </span>
+        <span class="menu-arrow">›</span>
       </button>
+
+      <button>
+        <span class="menu-icon">💳</span>
+        <span>
+          <b>Payment Accounts</b>
+          <small>Manage your payment methods</small>
+        </span>
+        <span class="menu-arrow">›</span>
+      </button>
+
+      <button>
+        <span class="menu-icon">🎁</span>
+        <span>
+          <b>Bonus and Rewards</b>
+          <small>Earn points and win prizes</small>
+        </span>
+        <span class="menu-arrow">›</span>
+      </button>
+
+      <button>
+        <span class="menu-icon">👥</span>
+        <span>
+          <b>Referral Program</b>
+          <small>Invite friends and earn rewards</small>
+        </span>
+        <span class="menu-arrow">›</span>
+      </button>
+
+      <button>
+        <span class="menu-icon">🔒</span>
+        <span>
+          <b>Security</b>
+          <small>Manage your account security</small>
+        </span>
+        <span class="menu-arrow">›</span>
+      </button>
+
+      <button>
+        <span class="menu-icon">💬</span>
+        <span>
+          <b>Contact Center</b>
+          <small>Get support from our team</small>
+        </span>
+        <span class="menu-arrow">›</span>
+      </button>
+
+      <button>
+        <span class="menu-icon">📖</span>
+        <span>
+          <b>How to Use Guide</b>
+          <small>Learn how to use the app</small>
+        </span>
+        <span class="menu-arrow">›</span>
+      </button>
+
     </div>
 
-    <div style="margin-bottom:14px;">
-      <label>Full Name</label>
-      <input
-        id="kycFullName"
-        type="text"
-        placeholder="Enter your full name"
-      >
-    </div>
+    <!-- KYC DETAILS -->
+    <div id="kycDetailsPanel" style="display:none;" class="kyc-details-card">
 
-    <div style="margin-bottom:14px;">
-      <label>Phone Number</label>
-      <input
-        id="kycPhone"
-        type="tel"
-        placeholder="+251..."
-      >
-    </div>
+      <h3>Personal Information</h3>
 
-    <div style="margin-bottom:14px;">
-      <label>Country</label>
-      <input
-        id="kycCountry"
-        type="text"
-        placeholder="Enter your country"
-      >
-    </div>
+      <input id="kycFullName" type="text" placeholder="Full name">
+      <input id="kycPhone" type="tel" placeholder="Phone number">
+      <input id="kycCountry" type="text" placeholder="Country">
 
-    <div style="margin-bottom:14px;">
-      <label>ID Type</label>
       <select id="kycIdType">
         <option value="">Select ID type</option>
         <option value="national_id">National ID</option>
         <option value="passport">Passport</option>
       </select>
-    </div>
 
-    <div style="margin-bottom:18px;">
-      <label>ID / Passport Number</label>
       <input
         id="kycIdNumber"
         type="text"
-        placeholder="Enter document number"
+        placeholder="ID / Passport number"
       >
-    </div>
 
-    <div
-      id="kycStatus"
-      style="margin-bottom:14px;font-size:14px;color:#aaa;"
-    >
-      Status: Unverified
-    </div>
+      <div id="kycStatus">Status: Pending</div>
 
-    <button
-      type="button"
-      onclick="submitKyc()"
-      style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:700;cursor:pointer;"
-    >
-      Submit Verification
-    </button>
+      <button class="kyc-submit-btn" onclick="submitKyc()">
+        Submit Verification
+      </button>
+
+    </div>
 
   </div>
 </div>
+
 <div class="modal" id="tradeModal">
 
   <div class="modal-box">
@@ -2101,11 +2490,43 @@ function openProfile() {
   setActiveNav("profile");
 
   const modal = document.getElementById("profileModal");
+
+  const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
+
+  if (tgUser) {
+    const fullName = [tgUser.first_name, tgUser.last_name]
+      .filter(Boolean)
+      .join(" ");
+
+    const username = tgUser.username
+      ? "@" + tgUser.username
+      : "@telegram";
+
+    document.getElementById("profileFullName").textContent =
+      fullName || "Telegram User";
+
+    document.getElementById("profileUsername").textContent =
+      username;
+
+    document.getElementById("profileAvatar").textContent =
+      (tgUser.first_name || "U").charAt(0).toUpperCase();
+  }
+
   if (modal) {
     modal.style.display = "flex";
   }
 }
 
+function toggleKycDetails() {
+  const panel = document.getElementById("kycDetailsPanel");
+
+  if (!panel) return;
+
+  panel.style.display =
+    panel.style.display === "none" || !panel.style.display
+      ? "block"
+      : "none";
+}
 function closeProfile() {
   const modal = document.getElementById("profileModal");
   if (modal) {
