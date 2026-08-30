@@ -935,7 +935,7 @@
 
     <div class="profile-menu">
 
-      <button onclick="toggleKycDetails()">
+     <button onclick="openProfileDetails()">
         <span class="menu-icon">👤</span>
         <span>
           <b>View Profile</b>
@@ -2619,6 +2619,16 @@ async function openProfile() {
   console.error("Profile data error:", error);
 } 
 }
+function openProfileDetails() {
+  const panel = document.getElementById("kycDetailsPanel");
+
+  if (!panel) {
+    console.error("kycDetailsPanel not found");
+    return;
+  }
+
+  panel.style.display = "block";
+}
 
 function toggleKycDetails() {
   const panel = document.getElementById("kycDetailsPanel");
@@ -2630,6 +2640,7 @@ function toggleKycDetails() {
       ? "block"
       : "none";
 }
+
 function closeProfile() {
   const modal = document.getElementById("profileModal");
   if (modal) {
