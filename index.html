@@ -3494,7 +3494,8 @@ async function submitKyc() {
         },
         body: JSON.stringify({
           initData: initData,
-          action: "save",
+       action: window.editingPaymentAccountId ? "update" : "save",
+account_id: window.editingPaymentAccountId || null,
           payment_method: paymentMethod,
           account_number: accountNumber
         })
@@ -3519,7 +3520,9 @@ async function submitKyc() {
     if (form) {
       form.style.display = "none";
     }
-
+window.editingPaymentAccountId = null;
+await loadPaymentAccounts();
+return;
     const account = result.account;
 
     const list =
