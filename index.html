@@ -3263,6 +3263,13 @@ function closeAddPaymentMethod() {
     form.style.display = "none";
   }
 }
+ function closeProfileDetails() {
+    const panel = document.getElementById("viewProfilePanel");
+
+    if (panel) {
+        panel.style.display = "none";
+    }
+} 
 function closeProfile() {
   const modal = document.getElementById("profileModal");
   if (modal) {
