@@ -4079,6 +4079,27 @@ async function openCreateAd() {
         button.style.background = "rgba(14,203,129,0.12)";
     }
 } 
+async function createP2PAd() {
+    const type = window.selectedAdType;
+
+    const price = document.getElementById("adPrice")?.value?.trim();
+    const amount = document.getElementById("adAmount")?.value?.trim();
+    const minLimit = document.getElementById("adMinLimit")?.value?.trim();
+    const maxLimit = document.getElementById("adMaxLimit")?.value?.trim();
+    const terms = document.getElementById("adTerms")?.value?.trim();
+
+    if (!type) {
+        alert("Please choose Buy or Sell.");
+        return;
+    }
+
+    if (!price || !amount || !minLimit || !maxLimit) {
+        alert("Please complete all required fields.");
+        return;
+    }
+
+    alert("Ad data is ready.");
+}  
  function selectAdType(type, button) {
     document.querySelectorAll(".ad-type-btn").forEach(btn => {
         btn.classList.remove("active");
