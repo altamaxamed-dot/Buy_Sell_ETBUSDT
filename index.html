@@ -3614,10 +3614,14 @@ function editPaymentAccount(id) {
     const methodSelect = document.getElementById("paymentMethodSelect");
     const accountInput = document.getElementById("paymentAccountNumber");
 
-    if (form) {
-        form.style.display = "block";
-    }
+   if (form) {
+    form.style.display = "block";
 
+    form.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
     if (methodSelect) {
         methodSelect.value = account.payment_method || "";
     }
