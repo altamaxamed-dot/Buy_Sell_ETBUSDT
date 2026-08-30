@@ -3214,6 +3214,7 @@ function openPaymentAccounts() {
 
   if (panel) {
     panel.style.display = "block";
+    loadPaymentAccounts();
   }
 
   const kycNameInput = document.getElementById("paymentKycName");
@@ -3225,7 +3226,119 @@ function openPaymentAccounts() {
       "";
   }
 }
+async function loadPaymentAccounts() {
+  try {
+    const tg = window.Telegram?.WebApp;
+    const initData = tg?.initData || "";
 
+    if (!initData) return;
+
+    const response = await fetch(
+      "https://bcfaznoplvxxseyiarhe.supabase.co/functions/v1/payment_accounts",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          initData: initData,
+          action: "list"
+        })
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(
+        result.error || "Could not load payment accounts"
+      );
+    }
+
+    const list =
+      document.getElementById("paymentAccountsList");
+
+    if (!list) return;
+
+    const accounts = result.accounts || [];
+
+    if (accounts.length === 0) {
+      list.innerHTML = `
+        <p style="color:#8b98a9;text-align:center;">
+          No payment methods added yet.
+        </p>
+      `;
+      return;
+    }
+
+    list.innerHTML = accounts.map(account => `
+      <div style="
+        position:relative;
+        background:#111c2b;
+        border:1px solid #27364a;
+        border-radius:16px;
+        padding:18px;
+        margin-top:12px;
+      ">
+
+        <div style="
+          display:flex;
+          align-items:center;
+          gap:8px;
+          font-weight:700;
+          font-size:17px;
+        ">
+          <span style="
+            width:6px;
+            height:18px;
+            border-radius:4px;
+            background:#f0b90b;
+            display:inline-block;
+          "></span>
+
+          ${account.payment_method}
+        </div>
+
+        <div style="
+          color:#ffffff;
+          margin-top:18px;
+          font-size:16px;
+        ">
+          ${account.account_name}
+        </div>
+
+        <div style="
+          color:#9aa8ba;
+          margin-top:8px;
+          font-size:16px;
+        ">
+          ${account.account_number}
+        </div>
+
+        <button
+          type="button"
+          style="
+            position:absolute;
+            right:18px;
+            bottom:18px;
+            background:none;
+            border:none;
+            color:#ffffff;
+            font-size:24px;
+          ">
+          ✎
+        </button>
+
+      </div>
+    `).join("");
+
+  } catch (error) {
+    console.error(
+      "Load payment accounts error:",
+      error
+    );
+  }
+}
 function closePaymentAccounts() {
   const panel = document.getElementById("paymentAccountsPanel");
   const profilePanel = document.getElementById("viewProfilePanel");
