@@ -4003,6 +4003,15 @@ async function openCreateAd() {
     await loadPaymentAccounts();
     renderAdPaymentMethods();
 }
+ function closeCreateAd() {
+    const createPage = document.getElementById("createAdPage");
+
+    if (createPage) {
+        createPage.style.display = "none";
+    }
+
+    openAds();
+} 
  function renderAdPaymentMethods() {
     const container = document.getElementById("adPaymentMethods");
     const accounts = window.paymentAccountsCache || [];
