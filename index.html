@@ -2496,7 +2496,7 @@ document.querySelector(".balance").textContent =
 
 document.getElementById("walletUsdtBalance").textContent =
     Number(result.user.balance_usdt || 0).toFixed(2);
-
+window.currentUsdtBalance = Number(result.user.balance_usdt || 0);
 document.getElementById("walletEtbBalance").textContent =
     Number(result.user.balance_etb || 0).toLocaleString();
 
@@ -4098,7 +4098,15 @@ async function createP2PAd() {
         alert("Please complete all required fields.");
         return;
     }
-
+if (
+    type === "sell" &&
+    Number(amount) > Number(window.currentUsdtBalance || 0)
+) {
+    alert(
+        "You cannot sell more than your USDT wallet balance."
+    );
+    return;
+}
     alert("Ad data is ready.");
 }  
  function selectAdType(type, button) {
