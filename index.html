@@ -3317,6 +3317,7 @@ async function loadPaymentAccounts() {
 
         <button
           type="button"
+          onclick="editPaymentAccount('${account.id}', '${account.payment_method}', '${account.account_number}')"
           style="
             position:absolute;
             right:18px;
@@ -3597,6 +3598,25 @@ async function submitKyc() {
     );
   }
 }
+ function editPaymentAccount(id, method, accountNumber) {
+    const form = document.getElementById("addPaymentMethodPanel");
+    const methodSelect = document.getElementById("paymentMethodSelect");
+    const accountInput = document.getElementById("paymentAccountNumber");
+
+    if (form) {
+        form.style.display = "block";
+    }
+
+    if (methodSelect) {
+        methodSelect.value = method;
+    }
+
+    if (accountInput) {
+        accountInput.value = accountNumber;
+    }
+
+    window.editingPaymentAccountId = id;
+} 
 function setActiveNavItem(item) {
   document.querySelectorAll(".bottom-nav .nav-item").forEach(nav => {
     nav.classList.remove("active");
