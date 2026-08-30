@@ -979,7 +979,12 @@ textarea {
     background: rgba(14, 203, 129, 0.12);
     border-color: #0ecb81;
     color: #0ecb81;
-}   
+} 
+  .ad-type-btn.sell-active {
+    background: rgba(246, 70, 93, 0.12);
+    border-color: #f6465d;
+    color: #f6465d;
+}  
   </style>
 </head>
 
@@ -3890,12 +3895,17 @@ if (createPage) {
  function selectAdType(type, button) {
     document.querySelectorAll(".ad-type-btn").forEach(btn => {
         btn.classList.remove("active");
+        btn.classList.remove("sell-active");
     });
 
-    button.classList.add("active");
+    if (type === "sell") {
+        button.classList.add("sell-active");
+    } else {
+        button.classList.add("active");
+    }
 
     window.selectedAdType = type;
-} 
+}
 function setActiveNavItem(item) {
   document.querySelectorAll(".bottom-nav .nav-item").forEach(nav => {
     nav.classList.remove("active");
