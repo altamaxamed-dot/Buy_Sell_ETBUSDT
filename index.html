@@ -3324,6 +3324,109 @@ async function submitKyc() {
     alert(error.message || "Could not submit verification.");
   }
 }
+  async function savePaymentMethod() {
+  try {
+    const tg = window.Telegram?.WebApp;
+    const initData = tg?.initData || "";
+
+    if (!initData) {
+      alert("Please open the app inside Telegram.");
+      return;
+    }
+
+    const paymentMethod =
+      document.getElementById("paymentMethodSelect")?.value || "";
+
+    const accountNumber =
+      document.getElementById("paymentAccountNumber")?.value.trim() || "";
+
+    if (!paymentMethod) {
+      alert("Please select a payment method.");
+      return;
+    }
+
+    if (!accountNumber) {
+      alert("Please enter your account number.");
+      return;
+    }
+
+    const response = await fetch(
+      "https://bcfaznoplvxxseyiarhe.supabase.co/functions/v1/payment_accounts",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          initData: initData,
+          action: "save",
+          payment_method: paymentMethod,
+          account_number: accountNumber
+        })
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(
+        result.error || "Could not save payment method"
+      );
+    }
+
+    alert("Payment method added successfully ✅");
+
+    document.getElementById("paymentAccountNumber").value = "";
+
+    const form =
+      document.getElementById("addPaymentMethodPanel");
+
+    if (form) {
+      form.style.display = "none";
+    }
+
+    const account = result.account;
+
+    const list =
+      document.getElementById("paymentAccountsList");
+
+    if (list && account) {
+      list.innerHTML = `
+        <div style="
+          background:#111c2b;
+          border:1px solid #27364a;
+          border-radius:14px;
+          padding:16px;
+          margin-top:12px;
+        ">
+          <div style="font-weight:700;font-size:16px;">
+            ${account.payment_method}
+          </div>
+
+          <div style="color:#9aa8ba;margin-top:7px;">
+            ${account.account_name}
+          </div>
+
+          <div style="margin-top:7px;">
+            ${account.account_number}
+          </div>
+
+          <div style="color:#9aa8ba;margin-top:7px;">
+            ${account.currency}
+          </div>
+        </div>
+      `;
+    }
+
+  } catch (error) {
+    console.error("Payment method error:", error);
+
+    alert(
+      error.message ||
+      "Could not save payment method."
+    );
+  }
+}
 function setActiveNavItem(item) {
   document.querySelectorAll(".bottom-nav .nav-item").forEach(nav => {
     nav.classList.remove("active");
