@@ -1000,6 +1000,42 @@
 
     </div>
 
+   <!-- VIEW PROFILE DETAILS -->
+<div id="viewProfilePanel" style="display:none;" class="kyc-details-card">
+
+  <h3>Profile Information</h3>
+
+  <div class="profile-detail-row">
+    <span>Full Name</span>
+    <strong id="viewProfileFullName">—</strong>
+  </div>
+
+  <div class="profile-detail-row">
+    <span>Phone Number</span>
+    <strong id="viewProfilePhone">—</strong>
+  </div>
+
+  <div class="profile-detail-row">
+    <span>Country</span>
+    <strong id="viewProfileCountry">—</strong>
+  </div>
+
+  <div class="profile-detail-row">
+    <span>ID Type</span>
+    <strong id="viewProfileIdType">—</strong>
+  </div>
+
+  <div class="profile-detail-row">
+    <span>ID / Passport Number</span>
+    <strong id="viewProfileIdNumber">—</strong>
+  </div>
+
+  <div class="profile-detail-row">
+    <span>KYC Status</span>
+    <strong id="viewProfileKycStatus">—</strong>
+  </div>
+
+</div> 
     <!-- KYC DETAILS -->
     <div id="kycDetailsPanel" style="display:none;" class="kyc-details-card">
 
@@ -2546,6 +2582,40 @@ async function openProfile() {
   const profile = result.profile || {};
   const stats = result.stats || {};
 
+   const viewFullName = document.getElementById("viewProfileFullName");
+const viewPhone = document.getElementById("viewProfilePhone");
+const viewCountry = document.getElementById("viewProfileCountry");
+const viewIdType = document.getElementById("viewProfileIdType");
+const viewIdNumber = document.getElementById("viewProfileIdNumber");
+const viewKycStatus = document.getElementById("viewProfileKycStatus");
+
+if (viewFullName) {
+  viewFullName.textContent = profile.kyc_full_name || profile.full_name || "—";
+}
+
+if (viewPhone) {
+  viewPhone.textContent = profile.phone_number || "—";
+}
+
+if (viewCountry) {
+  viewCountry.textContent = profile.country || "—";
+}
+
+if (viewIdType) {
+  viewIdType.textContent = profile.id_type
+    ? String(profile.id_type).replaceAll("_", " ").toUpperCase()
+    : "—";
+}
+
+if (viewIdNumber) {
+  viewIdNumber.textContent = profile.id_number || "—";
+}
+
+if (viewKycStatus) {
+  viewKycStatus.textContent = String(
+    profile.kyc_status || "not_submitted"
+  ).replaceAll("_", " ").toUpperCase();
+}
   // KYC STATUS
   const kycStatus = String(
     profile.kyc_status || "not_submitted"
@@ -2620,11 +2690,16 @@ async function openProfile() {
 } 
 }
 function openProfileDetails() {
-  const panel = document.getElementById("kycDetailsPanel");
+  const panel = document.getElementById("viewProfilePanel");
+  const kycPanel = document.getElementById("kycDetailsPanel");
 
   if (!panel) {
-    console.error("kycDetailsPanel not found");
+    console.error("viewProfilePanel not found");
     return;
+  }
+
+  if (kycPanel) {
+    kycPanel.style.display = "none";
   }
 
   panel.style.display = "block";
