@@ -1347,7 +1347,69 @@
       No payment methods added yet.
     </p>
   </div>
+<!-- ADD PAYMENT METHOD -->
+<div id="addPaymentMethodPanel" style="display:none;">
 
+  <div style="display:flex;align-items:center;gap:15px;margin-bottom:25px;">
+    <button onclick="closeAddPaymentMethod()"
+      style="background:none;border:none;color:#fff;font-size:28px;">
+      ‹
+    </button>
+    <h2 style="margin:0;">Add Payment Method</h2>
+  </div>
+
+  <label>Currency</label>
+  <div style="padding:15px;background:#1f2937;border-radius:12px;margin:8px 0 20px;">
+    🇪🇹 ETB
+  </div>
+
+  <label>Payment Method</label>
+  <select id="paymentMethodSelect"
+    style="width:100%;padding:15px;margin:8px 0 20px;border-radius:12px;">
+
+    <option value="">Select payment method</option>
+    <option value="Telebirr">Telebirr</option>
+    <option value="CBE">CBE</option>
+    <option value="CBE Birr">CBE Birr</option>
+    <option value="Awash Bank">Awash Bank</option>
+    <option value="Bank of Abyssinia">Bank of Abyssinia</option>
+    <option value="Dashen Bank">Dashen Bank</option>
+    <option value="NIB Bank">NIB Bank</option>
+    <option value="M-Pesa">M-Pesa</option>
+
+  </select>
+
+  <label>Full Name</label>
+  <input
+    id="paymentKycName"
+    type="text"
+    readonly
+    placeholder="Your KYC verified name"
+    style="width:100%;padding:15px;margin:8px 0;border-radius:12px;"
+  >
+
+  <small style="display:block;color:#8b98a9;margin-bottom:20px;">
+    Use only a payment account registered in your KYC name.
+    Third-party accounts may cause order cancellation or account restrictions.
+  </small>
+
+  <label>Account Number</label>
+  <input
+    id="paymentAccountNumber"
+    type="text"
+    placeholder="Enter account number"
+    style="width:100%;padding:15px;margin:8px 0 20px;border-radius:12px;"
+  >
+
+  <button
+    onclick="savePaymentMethod()"
+    style="width:100%;padding:16px;border:0;border-radius:12px;
+    background:#f0b90b;color:#111;font-weight:700;font-size:16px;">
+    Confirm
+  </button>
+
+</div>
+<!-- END ADD PAYMENT METHOD -->
 </div>
 <!-- END PAYMENT ACCOUNTS PAGE -->    
     
