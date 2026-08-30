@@ -2936,13 +2936,91 @@ if (viewKycStatus) {
     successRate.textContent =
       `${stats.success_rate ?? 100}%`;
   }
-
+fillFullProfileView(profile, stats);
   console.log("PROFILE DATA:", result);
 
 } catch (error) {
   console.error("Profile data error:", error);
-} 
+ }
 }
+ function fillFullProfileView(profile, stats) {
+  const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user || {};
+
+  const fullName =
+    profile.kyc_full_name ||
+    profile.full_name ||
+    [tgUser.first_name, tgUser.last_name].filter(Boolean).join(" ") ||
+    "Telegram User";
+
+  const username =
+    tgUser.username
+      ? "@" + tgUser.username
+      : profile.username || "@telegram";
+
+  const avatar = (tgUser.first_name || fullName || "U")
+    .charAt(0)
+    .toUpperCase();
+
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value ?? "—";
+  };
+
+  // Header
+  setText("viewProfileTopName", fullName);
+  setText("viewProfileUsername", username);
+  setText("viewProfileAvatar", avatar);
+
+  // Personal Info
+  setText("viewProfileFullName", fullName);
+  setText("viewProfilePhone", profile.phone_number || "—");
+  setText("viewProfileCountry", profile.country || "—");
+
+  // Trading Stats
+  setText(
+    "viewProfileSuccessRate",
+    `${stats.success_rate ?? 0}%`
+  );
+
+  setText(
+    "viewProfileCompleted",
+    stats.completed ?? 0
+  );
+
+  setText(
+    "viewProfileTotalTrades",
+    stats.total_trades ?? 0
+  );
+
+  // Account Info
+  setText(
+    "viewProfileMemberSince",
+    profile.member_since || "—"
+  );
+
+  setText(
+    "viewProfileAccountStatus",
+    String(profile.account_status || "active").toUpperCase()
+  );
+
+  setText(
+    "viewProfileKycStatus",
+    String(profile.kyc_status || "not_submitted")
+      .replaceAll("_", " ")
+      .toUpperCase()
+  );
+
+  setText(
+    "viewProfileCancelled",
+    stats.cancelled ?? 0
+  );
+
+  setText(
+    "viewProfileReliability",
+    `${stats.success_rate ?? 0}%`
+  );
+} 
+} 
 function openProfileDetails() {
   const panel = document.getElementById("viewProfilePanel");
   const kycPanel = document.getElementById("kycDetailsPanel");
