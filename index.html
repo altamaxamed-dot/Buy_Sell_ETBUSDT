@@ -4107,7 +4107,58 @@ if (
     );
     return;
 }
-    alert("Ad data is ready.");
+   const paymentMethods = window.selectedAdPaymentMethods || [];
+
+if (paymentMethods.length === 0) {
+    alert("Please select at least one payment method.");
+    return;
+}
+
+try {
+    const tg = window.Telegram?.WebApp;
+    const initData = tg?.initData || "";
+
+    const response = await fetch(
+        "https://bcfaznoplvxxseyiarhe.supabase.co/functions/v1/p2p-ads",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                initData: initData,
+                ad_type: type,
+                price: Number(price),
+                amount_usdt: Number(amount),
+                min_limit_etb: Number(minLimit),
+                max_limit_etb: Number(maxLimit),
+                payment_method_ids: paymentMethods,
+                terms: terms || null
+            })
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+        throw new Error(
+            result.error || "Could not create Ad"
+        );
+    }
+
+    alert("Ad created successfully!");
+
+    document.getElementById("createAdPage").style.display = "none";
+
+    openAds();
+
+} catch (error) {
+    console.error("Create Ad error:", error);
+
+    alert(
+        error.message || "Could not create Ad"
+    );
+} 
 }  
  function selectAdType(type, button) {
     document.querySelectorAll(".ad-type-btn").forEach(btn => {
