@@ -3171,7 +3171,65 @@ function toggleKycDetails() {
       ? "block"
       : "none";
 }
+function openPaymentAccounts() {
+  const panel = document.getElementById("paymentAccountsPanel");
+  const profilePanel = document.getElementById("viewProfilePanel");
 
+  if (profilePanel) {
+    profilePanel.style.display = "none";
+  }
+
+  if (panel) {
+    panel.style.display = "block";
+  }
+
+  const kycNameInput = document.getElementById("paymentKycName");
+
+  if (kycNameInput && window.currentProfileData) {
+    kycNameInput.value =
+      window.currentProfileData.kyc_full_name ||
+      window.currentProfileData.full_name ||
+      "";
+  }
+}
+
+function closePaymentAccounts() {
+  const panel = document.getElementById("paymentAccountsPanel");
+  const profilePanel = document.getElementById("viewProfilePanel");
+
+  if (panel) {
+    panel.style.display = "none";
+  }
+
+  if (profilePanel) {
+    profilePanel.style.display = "block";
+  }
+}
+
+function openAddPaymentMethod() {
+  const form = document.getElementById("addPaymentMethodPanel");
+
+  if (form) {
+    form.style.display = "block";
+  }
+
+  const kycNameInput = document.getElementById("paymentKycName");
+
+  if (kycNameInput && window.currentProfileData) {
+    kycNameInput.value =
+      window.currentProfileData.kyc_full_name ||
+      window.currentProfileData.full_name ||
+      "";
+  }
+}
+
+function closeAddPaymentMethod() {
+  const form = document.getElementById("addPaymentMethodPanel");
+
+  if (form) {
+    form.style.display = "none";
+  }
+}
 function closeProfile() {
   const modal = document.getElementById("profileModal");
   if (modal) {
