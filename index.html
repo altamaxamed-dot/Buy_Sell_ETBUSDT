@@ -1248,7 +1248,115 @@ textarea {
             </button>
 
         </div>
+<!-- ===== CREATE AD DETAILS ===== -->
+<div style="margin-top:28px; border-top:1px solid #2b3139; padding-top:24px;">
 
+  <!-- Pricing -->
+  <div style="font-size:22px; font-weight:700; margin-bottom:18px;">
+    Pricing
+  </div>
+
+  <label style="display:block; color:#848e9c; margin-bottom:8px;">
+    Price per USDT (ETB)
+  </label>
+
+  <div style="position:relative; margin-bottom:8px;">
+    <input
+      id="adPrice"
+      type="number"
+      step="0.01"
+      placeholder="58.50"
+      style="width:100%; box-sizing:border-box; padding:16px 60px 16px 16px;
+      background:#0b0e11; border:1px solid #2b3139; border-radius:12px;
+      color:white; font-size:16px;"
+    >
+    <span style="position:absolute; right:16px; top:16px; color:#848e9c;">ETB</span>
+  </div>
+
+  <!-- Total Amount -->
+  <div style="border-top:1px solid #2b3139; margin-top:24px; padding-top:24px;">
+    <div style="font-size:22px; font-weight:700; margin-bottom:18px;">
+      Total Amount
+    </div>
+
+    <label style="display:block; color:#848e9c; margin-bottom:8px;">
+      Amount (USDT)
+    </label>
+
+    <input
+      id="adAmount"
+      type="number"
+      step="0.01"
+      placeholder="100.00"
+      style="width:100%; box-sizing:border-box; padding:16px;
+      background:#0b0e11; border:1px solid #2b3139; border-radius:12px;
+      color:white; font-size:16px;"
+    >
+  </div>
+
+  <!-- Order Limits -->
+  <div style="border-top:1px solid #2b3139; margin-top:24px; padding-top:24px;">
+    <div style="font-size:22px; font-weight:700; margin-bottom:18px;">
+      Order Limits
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+      <div>
+        <label style="display:block; color:#848e9c; margin-bottom:8px;">Min (ETB)</label>
+        <input id="adMinLimit" type="number" placeholder="200"
+          style="width:100%; box-sizing:border-box; padding:16px;
+          background:#0b0e11; border:1px solid #2b3139; border-radius:12px;
+          color:white; font-size:16px;">
+      </div>
+
+      <div>
+        <label style="display:block; color:#848e9c; margin-bottom:8px;">Max (ETB)</label>
+        <input id="adMaxLimit" type="number" placeholder="5000"
+          style="width:100%; box-sizing:border-box; padding:16px;
+          background:#0b0e11; border:1px solid #2b3139; border-radius:12px;
+          color:white; font-size:16px;">
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Methods -->
+  <div style="border-top:1px solid #2b3139; margin-top:24px; padding-top:24px;">
+    <div style="font-size:22px; font-weight:700; margin-bottom:14px;">
+      Payment Methods
+    </div>
+
+    <div id="adPaymentMethods" style="color:#848e9c;">
+      Loading your payment methods...
+    </div>
+  </div>
+
+  <!-- Terms -->
+  <div style="border-top:1px solid #2b3139; margin-top:24px; padding-top:24px;">
+    <div style="font-size:22px; font-weight:700; margin-bottom:14px;">
+      Terms (Optional)
+    </div>
+
+    <textarea
+      id="adTerms"
+      placeholder="Enter any special terms..."
+      style="width:100%; box-sizing:border-box; min-height:110px; padding:16px;
+      resize:none; background:#0b0e11; border:1px solid #2b3139;
+      border-radius:12px; color:white; font-size:16px;"
+    ></textarea>
+  </div>
+
+  <!-- Create -->
+  <button
+    type="button"
+    onclick="createP2PAd()"
+    style="width:100%; margin-top:24px; padding:16px;
+    border:none; border-radius:12px; background:#fcd535;
+    color:#181a20; font-size:17px; font-weight:700;">
+    Create Ad
+  </button>
+
+</div>
+<!-- ===== END CREATE AD DETAILS ===== -->
     </div>
 
 </div>
@@ -3884,13 +3992,76 @@ function openAds() {
         adsPage.scrollTop = 0;
     }
 } 
- function openCreateAd() {
-  const createPage = document.getElementById("createAdPage");
+async function openCreateAd() {
+    const createPage = document.getElementById("createAdPage");
 
-if (createPage) {
-    createPage.style.display = "block";
-    createPage.scrollTop = 0;
-} 
+    if (createPage) {
+        createPage.style.display = "block";
+        createPage.scrollTop = 0;
+    }
+
+    await loadPaymentAccounts();
+    renderAdPaymentMethods();
+}
+ function renderAdPaymentMethods() {
+    const container = document.getElementById("adPaymentMethods");
+    const accounts = window.paymentAccountsCache || [];
+
+    if (!container) return;
+
+    if (!accounts.length) {
+        container.innerHTML = `
+            <div style="padding:16px; border:1px solid #2b3139; border-radius:12px;">
+                No payment methods added.
+            </div>
+        `;
+        return;
+    }
+
+    window.selectedAdPaymentMethods = [];
+
+    container.innerHTML = accounts.map(account => `
+        <button
+            type="button"
+            onclick="toggleAdPaymentMethod('${account.id}', this)"
+            style="
+                width:100%;
+                text-align:left;
+                padding:16px;
+                margin-bottom:10px;
+                background:#1e2329;
+                border:2px solid #2b3139;
+                border-radius:12px;
+                color:white;
+            "
+        >
+            <div style="font-size:16px; font-weight:700;">
+                ${account.payment_method}
+            </div>
+
+            <div style="font-size:13px; color:#848e9c; margin-top:4px;">
+                ${account.account_name || ""}
+            </div>
+        </button>
+    `).join("");
+}
+ function toggleAdPaymentMethod(id, button) {
+    window.selectedAdPaymentMethods =
+        window.selectedAdPaymentMethods || [];
+
+    const index = window.selectedAdPaymentMethods.indexOf(id);
+
+    if (index >= 0) {
+        window.selectedAdPaymentMethods.splice(index, 1);
+
+        button.style.borderColor = "#2b3139";
+        button.style.background = "#1e2329";
+    } else {
+        window.selectedAdPaymentMethods.push(id);
+
+        button.style.borderColor = "#0ecb81";
+        button.style.background = "rgba(14,203,129,0.12)";
+    }
 } 
  function selectAdType(type, button) {
     document.querySelectorAll(".ad-type-btn").forEach(btn => {
