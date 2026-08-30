@@ -3265,14 +3265,14 @@ function closeAddPaymentMethod() {
 }
 function closeProfileDetails() {
     const panel = document.getElementById("viewProfilePanel");
-    const profileModal = document.getElementById("profileModal");
+    const modal = document.getElementById("profileModal");
 
     if (panel) {
         panel.style.display = "none";
     }
 
-    if (profileModal) {
-        profileModal.style.display = "block";
+    if (modal) {
+        modal.style.display = "flex";
     }
 }
 function closeProfile() {
