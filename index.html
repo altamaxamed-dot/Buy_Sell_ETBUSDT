@@ -3613,7 +3613,7 @@ function editPaymentAccount(id) {
     const form = document.getElementById("addPaymentMethodPanel");
     const methodSelect = document.getElementById("paymentMethodSelect");
     const accountInput = document.getElementById("paymentAccountNumber");
-
+const kycNameInput = document.getElementById("paymentKycName");
    if (form) {
     form.style.display = "block";
 
@@ -3629,7 +3629,12 @@ function editPaymentAccount(id) {
     if (accountInput) {
         accountInput.value = account.account_number || "";
     }
-
+if (kycNameInput && window.currentProfileData) {
+    kycNameInput.value =
+        window.currentProfileData.kyc_full_name ||
+        window.currentProfileData.full_name ||
+        "";
+}
     window.editingPaymentAccountId = account.id;
 } 
 function setActiveNavItem(item) {
