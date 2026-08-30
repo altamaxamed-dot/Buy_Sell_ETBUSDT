@@ -3525,7 +3525,7 @@ async function submitKyc() {
       document.getElementById("paymentAccountsList");
 
     if (list && account) {
-   list.innerHTML = `
+  list.insertAdjacentHTML("beforeend", `
   <div style="
     position:relative;
     background:#111c2b;
@@ -3585,7 +3585,7 @@ async function submitKyc() {
     </button>
 
   </div>
-`;
+`);
     }
 
   } catch (error) {
