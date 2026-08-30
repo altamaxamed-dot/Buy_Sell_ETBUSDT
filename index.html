@@ -3992,6 +3992,13 @@ function openAds() {
         adsPage.scrollTop = 0;
     }
 } 
+function closeAds() {
+    const adsPage = document.getElementById("adsPage");
+
+    if (adsPage) {
+        adsPage.style.display = "none";
+    }
+}  
 async function openCreateAd() {
     const createPage = document.getElementById("createAdPage");
 
