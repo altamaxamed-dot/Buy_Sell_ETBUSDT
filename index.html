@@ -3358,7 +3358,16 @@ function openAddPaymentMethod() {
   if (form) {
     form.style.display = "block";
   }
+const methodSelect = document.getElementById("paymentMethodSelect");
+const accountInput = document.getElementById("paymentAccountNumber");
 
+if (methodSelect) {
+  methodSelect.value = "";
+}
+
+if (accountInput) {
+  accountInput.value = "";
+}
   const kycNameInput = document.getElementById("paymentKycName");
 
   if (kycNameInput && window.currentProfileData) {
