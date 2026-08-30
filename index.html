@@ -3261,7 +3261,7 @@ async function loadPaymentAccounts() {
     if (!list) return;
 
     const accounts = result.accounts || [];
-
+window.paymentAccountsCache = accounts;
     if (accounts.length === 0) {
       list.innerHTML = `
         <p style="color:#8b98a9;text-align:center;">
@@ -3317,7 +3317,7 @@ async function loadPaymentAccounts() {
 
         <button
           type="button"
-          onclick="editPaymentAccount('${account.id}', '${account.payment_method}', '${account.account_number}')"
+          onclick="editPaymentAccount('${account.id}')"
           style="
             position:absolute;
             right:18px;
@@ -3598,7 +3598,18 @@ async function submitKyc() {
     );
   }
 }
- function editPaymentAccount(id, method, accountNumber) {
+function editPaymentAccount(id) {
+    const accounts = window.paymentAccountsCache || [];
+
+    const account = accounts.find(
+        item => String(item.id) === String(id)
+    );
+
+    if (!account) {
+        alert("Payment account not found.");
+        return;
+    }
+
     const form = document.getElementById("addPaymentMethodPanel");
     const methodSelect = document.getElementById("paymentMethodSelect");
     const accountInput = document.getElementById("paymentAccountNumber");
@@ -3608,14 +3619,14 @@ async function submitKyc() {
     }
 
     if (methodSelect) {
-        methodSelect.value = method;
+        methodSelect.value = account.payment_method || "";
     }
 
     if (accountInput) {
-        accountInput.value = accountNumber;
+        accountInput.value = account.account_number || "";
     }
 
-    window.editingPaymentAccountId = id;
+    window.editingPaymentAccountId = account.id;
 } 
 function setActiveNavItem(item) {
   document.querySelectorAll(".bottom-nav .nav-item").forEach(nav => {
