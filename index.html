@@ -646,7 +646,181 @@
   .profile-stats strong {
     font-size: 20px;
   }
-}   
+}  
+  /* =========================
+   FULL VIEW PROFILE PAGE
+========================= */
+
+.profile-view-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 74px;
+  z-index: 9999;
+  background: #08111a;
+  overflow-y: auto;
+  padding: 0 16px 35px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.view-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 4px 20px;
+  border-bottom: 1px solid #263341;
+  margin-bottom: 18px;
+}
+
+.view-profile-back {
+  background: transparent;
+  border: none;
+  color: #8f9aaa;
+  font-size: 34px;
+  padding: 0;
+  width: 36px;
+  cursor: pointer;
+}
+
+.view-profile-avatar {
+  width: 58px;
+  height: 58px;
+  min-width: 58px;
+  border-radius: 50%;
+  background: #facc15;
+  color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.view-profile-user {
+  min-width: 0;
+}
+
+.view-profile-user h2 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  color: #f5f7fa;
+}
+
+.view-profile-user span {
+  color: #8f9aaa;
+  font-size: 15px;
+}
+
+.view-profile-card {
+  background: #151f2b;
+  border: 1px solid #2b3949;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.view-profile-card h3 {
+  color: #f5f7fa;
+  font-size: 21px;
+  margin: 0 0 20px;
+}
+
+.view-profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.view-profile-stats > div {
+  background: #222d39;
+  border-radius: 13px;
+  padding: 18px 8px;
+  text-align: center;
+}
+
+.view-profile-stats strong {
+  display: block;
+  color: #f5f7fa;
+  font-size: 27px;
+  margin-bottom: 7px;
+}
+
+.view-profile-stats div:first-child strong {
+  color: #17d69b;
+}
+
+.view-profile-stats span {
+  color: #8f9aaa;
+  font-size: 13px;
+}
+
+.achievement-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.achievement-green,
+.achievement-blue {
+  display: inline-block;
+  padding: 9px 13px;
+  border-radius: 9px;
+  font-size: 15px;
+}
+
+.achievement-green {
+  color: #13d99a;
+  background: rgba(19, 217, 154, 0.12);
+  border: 1px solid rgba(19, 217, 154, 0.45);
+}
+
+.achievement-blue {
+  color: #4b91ff;
+  background: rgba(75, 145, 255, 0.12);
+  border: 1px solid rgba(75, 145, 255, 0.45);
+}
+
+.profile-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 13px 0;
+}
+
+.profile-detail-row span {
+  color: #8f9aaa;
+  font-size: 16px;
+}
+
+.profile-detail-row strong {
+  color: #f5f7fa;
+  font-size: 16px;
+  text-align: right;
+  word-break: break-word;
+}
+
+#viewProfileKycStatus,
+#viewProfileAccountStatus,
+#viewProfileReliability {
+  color: #16d89c;
+}
+
+#viewProfileCancelled {
+  color: #facc15;
+}
+
+.security-row {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  background: #222d39;
+  color: #f5f7fa;
+  padding: 17px;
+  text-align: left;
+  font-size: 16px;
+}  
   </style>
 </head>
 
@@ -1000,42 +1174,122 @@
 
     </div>
 
-   <!-- VIEW PROFILE DETAILS -->
-<div id="viewProfilePanel" style="display:none;" class="kyc-details-card">
+<!-- FULL VIEW PROFILE PAGE -->
+<div id="viewProfilePanel" style="display:none;" class="profile-view-page">
 
-  <h3>Profile Information</h3>
+  <div class="view-profile-header">
+    <button class="view-profile-back" onclick="closeProfileDetails()">←</button>
 
-  <div class="profile-detail-row">
-    <span>Full Name</span>
-    <strong id="viewProfileFullName">—</strong>
+    <div class="view-profile-avatar" id="viewProfileAvatar">M</div>
+
+    <div class="view-profile-user">
+      <h2 id="viewProfileTopName">Telegram User</h2>
+      <span id="viewProfileUsername">@telegram</span>
+    </div>
   </div>
 
-  <div class="profile-detail-row">
-    <span>Phone Number</span>
-    <strong id="viewProfilePhone">—</strong>
+  <div class="view-profile-card">
+    <h3>Trading Stats</h3>
+
+    <div class="view-profile-stats">
+      <div>
+        <strong id="viewProfileSuccessRate">0%</strong>
+        <span>Success Rate</span>
+      </div>
+
+      <div>
+        <strong id="viewProfileCompleted">0</strong>
+        <span>Completed</span>
+      </div>
+
+      <div>
+        <strong id="viewProfileTotalTrades">0</strong>
+        <span>Total</span>
+      </div>
+    </div>
   </div>
 
-  <div class="profile-detail-row">
-    <span>Country</span>
-    <strong id="viewProfileCountry">—</strong>
+  <div class="view-profile-card">
+    <h3>Achievements</h3>
+
+    <div class="achievement-row">
+      <span class="achievement-green">★ New Trader</span>
+      <span class="achievement-blue">✓ Verified</span>
+    </div>
   </div>
 
-  <div class="profile-detail-row">
-    <span>ID Type</span>
-    <strong id="viewProfileIdType">—</strong>
+  <div class="view-profile-card">
+    <h3>Personal Info</h3>
+
+    <div class="profile-detail-row">
+      <span>Full Name</span>
+      <strong id="viewProfileFullName">—</strong>
+    </div>
+
+    <div class="profile-detail-row">
+      <span>Nickname</span>
+      <strong id="viewProfileNickname">—</strong>
+    </div>
+
+    <div class="profile-detail-row">
+      <span>Email</span>
+      <strong id="viewProfileEmail">—</strong>
+    </div>
+
+    <div class="profile-detail-row">
+      <span>Phone</span>
+      <strong id="viewProfilePhone">—</strong>
+    </div>
+
+    <div class="profile-detail-row">
+      <span>Nationality</span>
+      <strong id="viewProfileCountry">—</strong>
+    </div>
   </div>
 
-  <div class="profile-detail-row">
-    <span>ID / Passport Number</span>
-    <strong id="viewProfileIdNumber">—</strong>
+  <div class="view-profile-card">
+    <h3>Account Info</h3>
+
+    <div class="profile-detail-row">
+      <span>Member since</span>
+      <strong id="viewProfileMemberSince">—</strong>
+    </div>
+
+    <div class="profile-detail-row">
+      <span>Account Status</span>
+      <strong id="viewProfileAccountStatus">ACTIVE</strong>
+    </div>
+
+    <div class="profile-detail-row">
+      <span>KYC Status</span>
+      <strong id="viewProfileKycStatus">—</strong>
+    </div>
+
+    <div class="profile-detail-row">
+      <span>Total Trades</span>
+      <strong id="viewProfileAccountTotal">0</strong>
+    </div>
+
+    <div class="profile-detail-row">
+      <span>Cancelled</span>
+      <strong id="viewProfileCancelled">0</strong>
+    </div>
+
+    <div class="profile-detail-row">
+      <span>Reliability Score</span>
+      <strong id="viewProfileReliability">0%</strong>
+    </div>
   </div>
 
-  <div class="profile-detail-row">
-    <span>KYC Status</span>
-    <strong id="viewProfileKycStatus">—</strong>
+  <div class="view-profile-card">
+    <h3>Security</h3>
+
+    <button class="security-row">
+      🔒 Change Secret Code (Password)
+    </button>
   </div>
 
-</div> 
+</div>
     <!-- KYC DETAILS -->
     <div id="kycDetailsPanel" style="display:none;" class="kyc-details-card">
 
