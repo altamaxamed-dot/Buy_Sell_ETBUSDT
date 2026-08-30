@@ -1325,6 +1325,31 @@
   </div>
 
 </div>
+<!-- PAYMENT ACCOUNTS PAGE -->
+<div id="paymentAccountsPanel" style="display:none;" class="kyc-details-card">
+
+  <div style="display:flex;align-items:center;gap:15px;margin-bottom:25px;">
+    <button onclick="closePaymentAccounts()"
+      style="background:none;border:none;color:#fff;font-size:28px;cursor:pointer;">
+      ‹
+    </button>
+    <h2 style="margin:0;">Payment Accounts</h2>
+  </div>
+
+  <button onclick="openAddPaymentMethod()"
+    style="width:100%;padding:16px;border:none;border-radius:12px;
+    background:#f0b90b;color:#111;font-weight:700;font-size:16px;">
+    + Add Payment Method
+  </button>
+
+  <div id="paymentAccountsList" style="margin-top:20px;">
+    <p style="color:#8b98a9;text-align:center;">
+      No payment methods added yet.
+    </p>
+  </div>
+
+</div>
+<!-- END PAYMENT ACCOUNTS PAGE -->    
     
     <!-- KYC DETAILS -->
     <div id="kycDetailsPanel" style="display:none;" class="kyc-details-card">
