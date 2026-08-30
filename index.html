@@ -3403,31 +3403,67 @@ async function submitKyc() {
       document.getElementById("paymentAccountsList");
 
     if (list && account) {
-      list.innerHTML = `
-        <div style="
-          background:#111c2b;
-          border:1px solid #27364a;
-          border-radius:14px;
-          padding:16px;
-          margin-top:12px;
-        ">
-          <div style="font-weight:700;font-size:16px;">
-            ${account.payment_method}
-          </div>
+   list.innerHTML = `
+  <div style="
+    position:relative;
+    background:#111c2b;
+    border:1px solid #27364a;
+    border-radius:16px;
+    padding:18px;
+    margin-top:12px;
+  ">
 
-          <div style="color:#9aa8ba;margin-top:7px;">
-            ${account.account_name}
-          </div>
+    <div style="
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-weight:700;
+      font-size:17px;
+    ">
+      <span style="
+        width:6px;
+        height:18px;
+        border-radius:4px;
+        background:#f0b90b;
+        display:inline-block;
+      "></span>
 
-          <div style="margin-top:7px;">
-            ${account.account_number}
-          </div>
+      ${account.payment_method}
+    </div>
 
-          <div style="color:#9aa8ba;margin-top:7px;">
-            ${account.currency}
-          </div>
-        </div>
-      `;
+    <div style="
+      color:#ffffff;
+      margin-top:18px;
+      font-size:16px;
+    ">
+      ${account.account_name}
+    </div>
+
+    <div style="
+      color:#9aa8ba;
+      margin-top:8px;
+      font-size:16px;
+    ">
+      ${account.account_number}
+    </div>
+
+    <button
+      type="button"
+      style="
+        position:absolute;
+        right:18px;
+        bottom:18px;
+        background:none;
+        border:none;
+        color:#ffffff;
+        font-size:24px;
+        cursor:pointer;
+      ">
+      ✎
+    </button>
+
+  </div>
+`;
     }
 
   } catch (error) {
