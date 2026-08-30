@@ -955,7 +955,31 @@ textarea {
     padding: 14px 28px;
     border-radius: 10px;
     cursor: pointer;
-}    
+} 
+ /* ===== CREATE AD TYPE ===== */
+
+.ad-type-btn {
+    background: #1e2329;
+    color: #848e9c;
+    border: 2px solid #2b3139;
+    border-radius: 14px;
+    padding: 20px 14px;
+    min-height: 150px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+    font-size: 15px;
+}
+
+.ad-type-btn:hover {
+    border-color: #474d57;
+}
+
+.ad-type-btn.active {
+    background: rgba(14, 203, 129, 0.12);
+    border-color: #0ecb81;
+    color: #0ecb81;
+}   
   </style>
 </head>
 
@@ -1164,6 +1188,62 @@ textarea {
         <button class="post-ad-btn" onclick="openCreateAd()">
             Post Ad
         </button>
+    </div>
+
+</div>
+  <!-- ===== CREATE AD PAGE ===== -->
+<div id="createAdPage" class="ads-page">
+
+    <div class="ads-header">
+        <button class="ads-header-action" onclick="closeCreateAd()">‹</button>
+
+        <div class="ads-header-title">Create New Ad</div>
+
+        <div style="width:40px;"></div>
+    </div>
+
+    <div style="padding:20px;">
+
+        <div style="
+            color:#848e9c;
+            font-size:14px;
+            margin-bottom:12px;
+        ">
+            Choose what you want to do
+        </div>
+
+        <div style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:12px;
+        ">
+
+            <button
+                type="button"
+                onclick="selectAdType('buy', this)"
+                class="ad-type-btn"
+            >
+                <div style="font-size:24px;">↗</div>
+                <div style="font-weight:700;">I want to buy</div>
+                <div style="font-size:13px; margin-top:4px;">
+                    USDT with ETB
+                </div>
+            </button>
+
+            <button
+                type="button"
+                onclick="selectAdType('sell', this)"
+                class="ad-type-btn"
+            >
+                <div style="font-size:24px;">↘</div>
+                <div style="font-weight:700;">I want to sell</div>
+                <div style="font-size:13px; margin-top:4px;">
+                    USDT for ETB
+                </div>
+            </button>
+
+        </div>
+
     </div>
 
 </div>
@@ -3800,7 +3880,21 @@ function openAds() {
     }
 } 
  function openCreateAd() {
-    alert("Create Ad");
+  const createPage = document.getElementById("createAdPage");
+
+if (createPage) {
+    createPage.style.display = "block";
+    createPage.scrollTop = 0;
+} 
+} 
+ function selectAdType(type, button) {
+    document.querySelectorAll(".ad-type-btn").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    window.selectedAdType = type;
 } 
 function setActiveNavItem(item) {
   document.querySelectorAll(".bottom-nav .nav-item").forEach(nav => {
