@@ -2957,6 +2957,7 @@ async function openProfile() {
   }
 
   const profile = result.profile || {};
+   window.currentProfileData = profile;
   const stats = result.stats || {};
 
    const viewFullName = document.getElementById("viewProfileFullName");
