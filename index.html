@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE v html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -4165,7 +4165,45 @@ function closeProfile() {
     modal.style.display = "none";
   }
 }
+async function uploadKycFile(initData, side, file) {
+  const signResponse = await fetch(
+    "https://bcfaznoplvxxseyiarhe.supabase.co/functions/v1/kyc-upload-url",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        initData: initData,
+        side: side
+      })
+    }
+  );
 
+  const signResult = await signResponse.json();
+
+  if (!signResponse.ok || !signResult.success) {
+    throw new Error(signResult.error || "Could not prepare upload");
+  }
+
+  const uploadForm = new FormData();
+uploadForm.append("cacheControl", "3600");
+uploadForm.append("", file);
+
+const uploadResponse = await fetch(signResult.signedUrl, {
+  method: "PUT",
+  headers: {
+    "x-upsert": "false"
+  },
+  body: uploadForm
+});
+
+  if (!uploadResponse.ok) {
+    throw new Error("Photo upload failed");
+  }
+
+  return signResult.path;
+}
 async function submitKyc() {
   try {
     const tg = window.Telegram?.WebApp;
@@ -4187,6 +4225,8 @@ if (!fullName || !phoneNumber || !country || !idType || !idNumber || !idFront ||
       alert("Please complete all fields.");
       return;
     }
+ const frontPath = await uploadKycFile(initData, "front", idFront);
+const backPath = await uploadKycFile(initData, "back", idBack);   
 const formData = new FormData();
 
 formData.append("initData", initData);
@@ -4195,8 +4235,8 @@ formData.append("phone_number", phoneNumber);
 formData.append("country", country);
 formData.append("id_type", idType);
 formData.append("id_number", idNumber);
-formData.append("id_front", idFront);
-formData.append("id_back", idBack);
+formData.append("id_front_path", frontPath);
+formData.append("id_back_path", backPath);
     const response = await fetch(
       "https://bcfaznoplvxxseyiarhe.supabase.co/functions/v1/submit-kyc",
       {
