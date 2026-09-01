@@ -4210,9 +4210,10 @@ container.innerHTML = ads.map(ad => {
             background:#1e2329;
             border:1px solid #343a40;
             border-radius:12px;
-            padding:16px;
+            padding:14px;
             margin-bottom:14px;
             text-align:left;
+            max-width:360px;
         ">
 
             <div style="
@@ -4224,7 +4225,7 @@ container.innerHTML = ads.map(ad => {
                 <div>
                     <div style="
                         color:#f1f3f5;
-                        font-size:17px;
+                        font-size:15px;
                         font-weight:700;
                         margin-bottom:10px;
                     ">
@@ -4350,7 +4351,7 @@ container.innerHTML = ads.map(ad => {
                     <div style="color:#848e9c;font-size:13px;margin-bottom:4px;">
                         Price per USD
                     </div>
-                    <div style="color:#f1f3f5;font-size:17px;font-weight:700;">
+                    <div style="color:#f1f3f5;font-size:14px;font-weight:700;">
                         ${Number(ad.price).toFixed(2)} ETB
                     </div>
                 </div>
@@ -4359,16 +4360,16 @@ container.innerHTML = ads.map(ad => {
                     <div style="color:#848e9c;font-size:13px;margin-bottom:4px;">
                         Min Limit
                     </div>
-                    <div style="color:#f1f3f5;font-size:17px;font-weight:700;">
+                    <div style="color:#f1f3f5;font-size:13px;font-weight:700;">
                         ${Number(ad.min_limit_etb).toFixed(2)} ETB
                     </div>
                 </div>
 
                 <div>
-                    <div style="color:#848e9c;font-size:13px;margin-bottom:4px;">
+                    <div style="color:#848e9c;font-size:12px;margin-bottom:4px;">
                         Max Limit
                     </div>
-                    <div style="color:#f1f3f5;font-size:17px;font-weight:700;">
+                    <div style="color:#f1f3f5;font-size:13px;font-weight:700;">
                         ${Number(ad.max_limit_etb).toFixed(2)} ETB
                     </div>
                 </div>
@@ -4377,7 +4378,7 @@ container.innerHTML = ads.map(ad => {
                     <div style="color:#848e9c;font-size:13px;margin-bottom:4px;">
                         Max Amount
                     </div>
-                    <div style="color:#f1f3f5;font-size:17px;font-weight:700;">
+                    <div style="color:#f1f3f5;font-size:13px;font-weight:700;">
                         ${Number(ad.amount_usdt).toFixed(2)} USDT
                     </div>
                 </div>
@@ -4385,8 +4386,8 @@ container.innerHTML = ads.map(ad => {
             </div>
 
             <div style="
-                margin-top:18px;
-                padding-top:12px;
+                margin-top:14px;
+                padding-top:11px;
                 border-top:1px solid #2b3139;
                 color:#848e9c;
                 font-size:13px;
