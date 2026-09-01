@@ -4693,6 +4693,8 @@ try {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
+              action: window.editingP2PAdId ? "update" : "create",
+ad_id: window.editingP2PAdId || null,
                 initData: initData,
                 ad_type: type,
                 price: Number(price),
