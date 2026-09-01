@@ -4466,7 +4466,21 @@ async function toggleAdStatus(adId, newStatus) {
 
     element.dataset.online = newState ? "true" : "false";
     element.style.background = newState ? "#0ecb81" : "#474d57";
+const row = element.parentElement;
 
+if (row) {
+    row.querySelectorAll("div").forEach(item => {
+        const text = item.textContent.trim();
+
+        if (text === "Keep Me Online") {
+            item.style.color = newState ? "#0ecb81" : "#f1f3f5";
+        }
+
+        if (text === "Show actual status") {
+            item.style.color = newState ? "#0ecb81" : "#848e9c";
+        }
+    });
+}
     const knob = element.firstElementChild;
 
     if (knob) {
