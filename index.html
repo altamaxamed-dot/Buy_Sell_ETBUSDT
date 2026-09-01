@@ -3991,6 +3991,175 @@ function openAds() {
     if (adsPage) {
         adsPage.style.display = "block";
         adsPage.scrollTop = 0;
+      await loadMyAds();
+    }
+} 
+ async function loadMyAds() {
+    const container = document.getElementById("myAdsList");
+
+    if (!container) return;
+
+    container.innerHTML = `
+        <div style="padding:20px; text-align:center; color:#848e9c;">
+            Loading Ads...
+        </div>
+    `;
+
+    try {
+        const tg = window.Telegram?.WebApp;
+        const initData = tg?.initData || "";
+
+        const response = await fetch(
+            "https://bcfaznoplvxxseyiarhe.supabase.co/functions/v1/p2p-ads",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    action: "list",
+                    initData: initData
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(
+                result.error || "Could not load Ads"
+            );
+        }
+
+        const ads = result.ads || [];
+
+        if (ads.length === 0) {
+            container.innerHTML = `
+                <div class="ads-empty-icon">▱</div>
+                <div class="ads-empty-title">
+                    You do not have any Ads.
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = ads.map(ad => {
+            const isBuy = ad.ad_type === "buy";
+
+            return `
+                <div style="
+                    background:#1e2329;
+                    border:1px solid #2b3139;
+                    border-radius:14px;
+                    padding:18px;
+                    margin-bottom:16px;
+                    text-align:left;
+                ">
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                        margin-bottom:14px;
+                    ">
+                        <div style="
+                            font-size:18px;
+                            font-weight:700;
+                            color:#f1f3f5;
+                        ">
+                            ${isBuy ? "I am buying USDT" : "I am selling USDT"}
+                        </div>
+
+                        <div style="
+                            color:${ad.status === "active" ? "#0ecb81" : "#848e9c"};
+                            font-weight:600;
+                        ">
+                            ${ad.status === "active" ? "Active" : ad.status}
+                        </div>
+                    </div>
+
+                    <div style="
+                        display:inline-block;
+                        padding:7px 12px;
+                        border-radius:8px;
+                        margin-bottom:18px;
+                        font-weight:700;
+                        background:${isBuy
+                            ? "rgba(246,70,93,0.15)"
+                            : "rgba(14,203,129,0.15)"};
+                        color:${isBuy ? "#f6465d" : "#0ecb81"};
+                    ">
+                        ${isBuy ? "↗ Buy USDT" : "↘ Sell USDT"}
+                    </div>
+
+                    <div style="
+                        display:grid;
+                        grid-template-columns:1fr 1fr;
+                        gap:18px;
+                    ">
+
+                        <div>
+                            <div style="color:#848e9c;font-size:14px;">
+                                Price per USD
+                            </div>
+                            <div style="font-size:20px;font-weight:700;">
+                                ${Number(ad.price).toFixed(2)} ETB
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="color:#848e9c;font-size:14px;">
+                                Min Limit
+                            </div>
+                            <div style="font-size:20px;font-weight:700;">
+                                ${Number(ad.min_limit_etb).toFixed(2)} ETB
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="color:#848e9c;font-size:14px;">
+                                Max Limit
+                            </div>
+                            <div style="font-size:20px;font-weight:700;">
+                                ${Number(ad.max_limit_etb).toFixed(2)} ETB
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="color:#848e9c;font-size:14px;">
+                                Max Amount
+                            </div>
+                            <div style="font-size:20px;font-weight:700;">
+                                ${Number(ad.amount_usdt).toFixed(2)} USDT
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div style="
+                        margin-top:18px;
+                        color:#848e9c;
+                        font-size:14px;
+                    ">
+                        👁 0 views &nbsp;&nbsp; ✓ 0 completed
+                    </div>
+
+                </div>
+            `;
+        }).join("");
+
+    } catch (error) {
+        console.error("Load Ads error:", error);
+
+        container.innerHTML = `
+            <div style="
+                padding:20px;
+                text-align:center;
+                color:#f6465d;
+            ">
+                ${error.message || "Could not load Ads"}
+            </div>
+        `;
     }
 } 
 function closeAds() {
