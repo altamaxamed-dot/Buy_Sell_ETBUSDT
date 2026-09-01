@@ -677,7 +677,93 @@ textarea {
   .profile-stats strong {
     font-size: 20px;
   }
-}  
+} 
+ /* REGISTER PAGE */
+.register-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #07111f;
+  color: #fff;
+  padding: 28px 20px 40px;
+  overflow-y: auto;
+}
+
+.register-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.register-header h2 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.register-header p {
+  margin: 6px 0 0;
+  color: #8d99aa;
+  font-size: 15px;
+}
+
+.register-header span {
+  color: #f0b90b;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.register-progress {
+  width: 100%;
+  height: 5px;
+  background: #283445;
+  border-radius: 10px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.register-progress-fill {
+  width: 100%;
+  height: 100%;
+  background: #f0b90b;
+}
+
+.register-page label {
+  display: block;
+  margin: 17px 0 8px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.register-page input,
+.register-page select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px 14px;
+  border-radius: 10px;
+  border: 1px solid #344154;
+  background: #111d2d;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+}
+
+.register-page input:focus,
+.register-page select:focus {
+  border-color: #f0b90b;
+}
+
+.register-submit {
+  width: 100%;
+  margin-top: 28px;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background: #f0b90b;
+  color: #111;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}   
   /* =========================
    FULL VIEW PROFILE PAGE
 ========================= */
@@ -1560,7 +1646,47 @@ textarea {
   </div>
 </div>
 
-<!-- PROFILE MODAL -->
+<!-- REGISTER MODAL -->
+<div class="modal" id="registerModal">
+  <div class="register-page">
+
+    <div class="register-header">
+      <div>
+        <h2>Register</h2>
+        <p>Complete your basic information</p>
+      </div>
+      <span>Step 1 of 1</span>
+    </div>
+
+    <div class="register-progress">
+      <div class="register-progress-fill"></div>
+    </div>
+
+    <label>Nickname *</label>
+    <input type="text" id="signupNickname" placeholder="Enter nickname">
+
+    <label>Full Name *</label>
+    <input type="text" id="signupFullName" placeholder="Enter your full name">
+
+    <label>Email *</label>
+    <input type="email" id="signupEmail" placeholder="Enter email address">
+
+    <label>Country *</label>
+    <select id="signupCountry">
+      <option value="Ethiopia">🇪🇹 Ethiopia</option>
+    </select>
+
+    <label>Phone Number *</label>
+    <input type="tel" id="signupPhone" placeholder="+251 9XXXXXXXX">
+
+    <button type="button" class="register-submit" onclick="submitSignup()">
+      Submit Registration
+    </button>
+
+  </div>
+</div>
+
+<!-- PROFILE MODAL --> 
 <div class="modal" id="profileModal">
   <div class="profile-page">
 
@@ -2682,6 +2808,10 @@ document.getElementById("walletEtbBalance").textContent =
 
 document.querySelector(".balance-label").textContent =
   "Wallet Balance";
+    if (!result.user?.signup_completed) {
+  openRegister();
+  return;
+}
     alert(
       "Login successful ✅\nWelcome " +
       (result.user.first_name || result.user.username || "User")
@@ -3400,6 +3530,13 @@ async function submitWithdraw() {
     );
   }
 } 
+function openRegister() {
+  const modal = document.getElementById("registerModal");
+
+  if (modal) {
+    modal.style.display = "flex";
+  }
+}  
 async function openProfile() {
   setActiveNav("profile");
 
