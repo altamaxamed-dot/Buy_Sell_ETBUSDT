@@ -438,11 +438,56 @@ textarea {
 .profile-stats,
 .profile-menu button,
 .kyc-details-card {
-  background: #101b29;
-  border: 1px solid #233043;
-  border-radius: 18px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: #07111f;
+    color: #fff;
+    padding: 28px 20px 40px;
+    overflow-y: auto;
+    z-index: 9999;
+    border: none;
+    border-radius: 0;
+    -webkit-overflow-scrolling: touch;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+transform: translateX(0);
+}
+.kyc-details-card h2 {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0 0 6px;
 }
 
+.kyc-details-card > p {
+    color: #f0b90b;
+    font-weight: 700;
+    margin: 0 0 6px;
+}
+
+.kyc-subtitle {
+    color: #8b98ad !important;
+    font-weight: 400 !important;
+    margin-bottom: 18px !important;
+}
+
+.kyc-progress {
+    width: 100%;
+    height: 6px;
+    background: #233043;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 28px;
+}
+
+.kyc-progress-fill {
+    width: 100%;
+    height: 100%;
+    background: #f0b90b;
+}
 .profile-main-card {
   padding: 22px;
 }
@@ -643,14 +688,15 @@ textarea {
 }
 
 .kyc-submit-btn {
-  width: 100%;
-  padding: 14px;
-  border: 0;
-  border-radius: 12px;
-  background: #f4c928;
-  color: #111;
-  font-weight: 800;
-  font-size: 15px;
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 14px;
+    background: #f0b90b;
+    color: #111;
+    font-weight: 800;
+    font-size: 18px;
+    margin-top: 20px;
 }
 
 @media (max-width: 430px) {
@@ -687,6 +733,8 @@ textarea {
   overflow-y: auto;
   height: 100%;
 -webkit-overflow-scrolling: touch;
+ transition: opacity 0.25s ease, transform 0.25s ease;
+transform: translateX(0); 
 }
 
 .register-header {
@@ -2040,6 +2088,11 @@ textarea {
     <div id="kycDetailsPanel" style="display:none;" class="kyc-details-card">
 <h2>Identity Verification</h2>
 <p>Step 2 of 2</p>
+  <p class="kyc-subtitle">Complete your identity verification</p>
+
+<div class="kyc-progress">
+    <div class="kyc-progress-fill"></div>
+</div>    
       <h3>Personal Information</h3>
 
       <input id="kycFullName" type="text" placeholder="Full name">
@@ -3585,15 +3638,36 @@ async function submitSignup() {
       throw new Error(result.error || "Registration failed");
     }
 
-    alert("Registration submitted successfully ✅");
-document.getElementById("registerModal").style.display = "none";
+const registerModal = document.getElementById("registerModal");
 const profileModal = document.getElementById("profileModal");
-if (profileModal) {
-  profileModal.style.display = "flex";
-}    
 const kycPanel = document.getElementById("kycDetailsPanel");
-if (kycPanel) {
-  kycPanel.style.display = "block";
+
+if (registerModal) {
+  const registerPage = registerModal.querySelector(".register-page");
+
+  if (registerPage) {
+    registerPage.style.opacity = "0";
+    registerPage.style.transform = "translateX(-20px)";
+  }
+
+  setTimeout(() => {
+    registerModal.style.display = "none";
+
+    if (profileModal) {
+      profileModal.style.display = "flex";
+    }
+
+    if (kycPanel) {
+      kycPanel.style.display = "block";
+      kycPanel.style.opacity = "0";
+      kycPanel.style.transform = "translateX(20px)";
+
+      requestAnimationFrame(() => {
+        kycPanel.style.opacity = "1";
+        kycPanel.style.transform = "translateX(0)";
+      });
+    }
+  }, 250);
 }
   } catch (error) {
     console.error("Signup error:", error);
