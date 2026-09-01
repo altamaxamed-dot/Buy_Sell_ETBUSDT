@@ -3585,7 +3585,8 @@ async function submitSignup() {
     }
 
     alert("Registration submitted successfully ✅");
-
+document.getElementById("registerModal").style.display = "none";
+toggleKycDetails();
   } catch (error) {
     console.error("Signup error:", error);
     alert(error.message || "Registration failed");
