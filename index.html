@@ -1257,13 +1257,16 @@ textarea {
                 </div>
             </div>
 
-            <div style="
+            <div
+  onclick="toggleKeepOnline(this)"
+  style="
                 width:40px;
                 height:20px;
                 border-radius:20px;
                 background:#474d57;
                 padding:3px;
                 box-sizing:border-box;
+              cursor:pointer;
             ">
                 <div style="
                     width:24px;
@@ -4153,15 +4156,32 @@ if (kycNameInput && window.currentProfileData) {
         alert(error.message || "Could not delete payment account");
     }
 } 
+
 function openAds() {
     const adsPage = document.getElementById("adsPage");
 
     if (adsPage) {
         adsPage.style.display = "block";
         adsPage.scrollTop = 0;
-     loadMyAds(); 
+        loadMyAds();
+
+        setTimeout(() => {
+            const keepOnlineToggle = document.querySelector('[onclick="toggleKeepOnline(this)"]');
+            if (!keepOnlineToggle) return;
+
+            const savedState = localStorage.getItem("keepMeOnline") === "true";
+
+            keepOnlineToggle.dataset.online = savedState ? "true" : "false";
+            keepOnlineToggle.style.background = savedState ? "#0ecb81" : "#474d57";
+
+            const knob = keepOnlineToggle.firstElementChild;
+            if (knob) {
+                knob.style.marginLeft = savedState ? "10px" : "0px";
+            }
+        }, 0);
     }
 } 
+  
 async function loadMyAds() {
     const container = document.getElementById("myAdsList");
 
@@ -4439,7 +4459,26 @@ async function toggleAdStatus(adId, newStatus) {
         console.error("Toggle Ad error:", error);
         alert(error.message || "Could not update Ad");
     }
-}  
+} 
+ function toggleKeepOnline(element) {
+    const isOn = element.dataset.online === "true";
+    const newState = !isOn;
+
+    element.dataset.online = newState ? "true" : "false";
+    element.style.background = newState ? "#0ecb81" : "#474d57";
+
+    const knob = element.firstElementChild;
+
+    if (knob) {
+        knob.style.marginLeft = newState ? "10px" : "0px";
+        knob.style.transition = "0.2s";
+    }
+
+    localStorage.setItem(
+        "keepMeOnline",
+        newState ? "true" : "false"
+    );
+} 
 function closeAds() {
     const adsPage = document.getElementById("adsPage");
 
