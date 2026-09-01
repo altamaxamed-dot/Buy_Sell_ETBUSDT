@@ -4264,13 +4264,16 @@ container.innerHTML = ads.map(ad => {
                             ${isActive ? "Active" : "Paused"}
                         </span>
 
-                        <div style="
+                       <div
+    onclick="toggleAdStatus('${ad.id}', '${isActive ? "paused" : "active"}')"
+    style="
                             width:43px;
                             height:24px;
                             border-radius:20px;
                             background:${isActive ? "#0ecb81" : "#474d57"};
                             padding:3px;
                             box-sizing:border-box;
+                            cursor:pointer;
                         ">
                             <div style="
                                 width:18px;
@@ -4404,6 +4407,39 @@ container.innerHTML = ads.map(ad => {
         container.textContent = error.message || "Could not load Ads";
     }
 }
+async function toggleAdStatus(adId, newStatus) {
+    try {
+        const initData = window.Telegram?.WebApp?.initData || "";
+
+        const response = await fetch(
+            "https://bcfaznoplvxxseyiarhe.supabase.co/functions/v1/p2p-ads",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    action: "update_status",
+                    initData: initData,
+                    ad_id: adId,
+                    status: newStatus
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(result.error || "Could not update Ad");
+        }
+
+        await loadMyAds();
+
+    } catch (error) {
+        console.error("Toggle Ad error:", error);
+        alert(error.message || "Could not update Ad");
+    }
+}  
 function closeAds() {
     const adsPage = document.getElementById("adsPage");
 
