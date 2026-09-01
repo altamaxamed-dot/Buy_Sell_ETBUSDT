@@ -2110,7 +2110,11 @@ transform: translateX(0);
         type="text"
         placeholder="ID / Passport number"
       >
+<label>ID Front Photo *</label>
+<input type="file" id="kycIdFront" accept="image/*">
 
+<label>ID Back Photo *</label>
+<input type="file" id="kycIdBack" accept="image/*">
       <div id="kycStatus">Status: Pending</div>
 
       <button class="kyc-submit-btn" onclick="submitKyc()">
@@ -4177,27 +4181,27 @@ async function submitKyc() {
     const country = document.getElementById("kycCountry").value.trim();
     const idType = document.getElementById("kycIdType").value;
     const idNumber = document.getElementById("kycIdNumber").value.trim();
-
-    if (!fullName || !phoneNumber || !country || !idType || !idNumber) {
+const idFront = document.getElementById("kycIdFront").files[0];
+const idBack = document.getElementById("kycIdBack").files[0];
+if (!fullName || !phoneNumber || !country || !idType || !idNumber || !idFront || !idBack) { 
       alert("Please complete all fields.");
       return;
     }
+const formData = new FormData();
 
+formData.append("initData", initData);
+formData.append("full_name", fullName);
+formData.append("phone_number", phoneNumber);
+formData.append("country", country);
+formData.append("id_type", idType);
+formData.append("id_number", idNumber);
+formData.append("id_front", idFront);
+formData.append("id_back", idBack);
     const response = await fetch(
       "https://bcfaznoplvxxseyiarhe.supabase.co/functions/v1/submit-kyc",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          initData: initData,
-          full_name: fullName,
-          phone_number: phoneNumber,
-          country: country,
-          id_type: idType,
-          id_number: idNumber
-        })
+body: formData
       }
     );
 
