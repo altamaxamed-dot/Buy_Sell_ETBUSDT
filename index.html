@@ -3587,6 +3587,10 @@ async function submitSignup() {
 
     alert("Registration submitted successfully ✅");
 document.getElementById("registerModal").style.display = "none";
+const profileModal = document.getElementById("profileModal");
+if (profileModal) {
+  profileModal.style.display = "flex";
+}    
 const kycPanel = document.getElementById("kycDetailsPanel");
 if (kycPanel) {
   kycPanel.style.display = "block";
