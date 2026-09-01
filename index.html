@@ -2660,7 +2660,12 @@ async function createDemoOrder() {
       alert("Telegram login failed: " + (result.error || "Unknown error"));
       return;
     }
+const accountStatus = result.user?.account_status || "pending";
 
+if (accountStatus !== "approved") {
+  alert("Your account is pending approval.");
+  return;
+}
     window.currentUser = result.user;
 document.querySelector(".balance").textContent =
   Number(result.user.balance_usdt || 0).toFixed(2) + " USDT";
