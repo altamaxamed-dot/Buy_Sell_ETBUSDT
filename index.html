@@ -4341,6 +4341,7 @@ container.innerHTML = ads.map(ad => {
 <button
     type="button"
     title="Delete"
+    onclick="deleteP2PAd('${ad.id}')"
     style="
         background:none;
         border:none;
@@ -4578,6 +4579,45 @@ async function openCreateAd() {
     if (maxLimit) maxLimit.value = ad.max_limit_etb ?? "";
     if (terms) terms.value = ad.terms ?? "";
 } 
+async function deleteP2PAd(adId) {
+    const confirmed = confirm("Are you sure you want to delete this Ad?");
+
+    if (!confirmed) return;
+
+    try {
+        const tg = window.Telegram?.WebApp;
+        const initData = tg?.initData || "";
+
+        const response = await fetch(
+            "https://bcfaznoplxxseyiarhe.supabase.co/functions/v1/p2p-ads",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    initData: initData,
+                    action: "delete",
+                    ad_id: adId
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(result.error || "Could not delete Ad");
+        }
+
+        alert("Ad deleted successfully!");
+
+        await loadMyAds();
+
+    } catch (error) {
+        console.error("Delete Ad error:", error);
+        alert(error.message || "Could not delete Ad");
+    }
+}  
  function closeCreateAd() {
     const createPage = document.getElementById("createAdPage");
 
