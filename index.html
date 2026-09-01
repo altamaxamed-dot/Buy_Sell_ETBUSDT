@@ -4216,7 +4216,7 @@ async function loadMyAds() {
         }
 
         const ads = result.ads || [];
-
+window.myAdsCache = ads;
    if (ads.length === 0) {
     container.innerHTML = `
         <div class="ads-empty-icon">▱</div>
@@ -4318,6 +4318,7 @@ container.innerHTML = ads.map(ad => {
                        <button
     type="button"
     title="Edit"
+    onclick="editP2PAd('${ad.id}')"
     style="
         background:none;
         border:none;
@@ -4549,6 +4550,34 @@ async function openCreateAd() {
     await loadPaymentAccounts();
     renderAdPaymentMethods();
 }
+ async function editP2PAd(adId) {
+    const ad = (window.myAdsCache || []).find(
+        item => String(item.id) === String(adId)
+    );
+
+    if (!ad) {
+        alert("Ad not found.");
+        return;
+    }
+
+    window.editingP2PAdId = ad.id;
+
+    await openCreateAd();
+
+    window.selectedAdType = ad.ad_type;
+
+    const price = document.getElementById("adPrice");
+    const amount = document.getElementById("adAmount");
+    const minLimit = document.getElementById("adMinLimit");
+    const maxLimit = document.getElementById("adMaxLimit");
+    const terms = document.getElementById("adTerms");
+
+    if (price) price.value = ad.price ?? "";
+    if (amount) amount.value = ad.amount_usdt ?? "";
+    if (minLimit) minLimit.value = ad.min_limit_etb ?? "";
+    if (maxLimit) maxLimit.value = ad.max_limit_etb ?? "";
+    if (terms) terms.value = ad.terms ?? "";
+} 
  function closeCreateAd() {
     const createPage = document.getElementById("createAdPage");
 
