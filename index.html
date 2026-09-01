@@ -3502,7 +3502,9 @@ if (viewKycStatus) {
 
   const kycEl = document.getElementById("profileKycStatus");
   if (kycEl) {
-    kycEl.textContent = kycStatus;
+  kycEl.textContent = kycStatus === "VERIFIED" ? "✓ VERIFIED" : kycStatus;
+  kycEl.classList.toggle("green-text", kycStatus === "VERIFIED");
+}  
   }
 
   // KYC BADGE
