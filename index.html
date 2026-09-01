@@ -1288,6 +1288,7 @@ textarea {
         ">
             <button
                 type="button"
+              onclick="filterMyAds('all', this)"
                 style="
                     border:none;
                     border-radius:8px;
@@ -1303,6 +1304,7 @@ textarea {
 
             <button
                 type="button"
+              onclick="filterMyAds('buy', this)"
                 style="
                     border:none;
                     background:transparent;
@@ -1315,6 +1317,7 @@ textarea {
 
             <button
                 type="button"
+              onclick="filterMyAds('sell', this)"
                 style="
                     border:none;
                     background:transparent;
@@ -4427,6 +4430,41 @@ container.innerHTML = ads.map(ad => {
         container.textContent = error.message || "Could not load Ads";
     }
 }
+function filterMyAds(type, button) {
+    const container = document.getElementById("myAdsList");
+    if (!container) return;
+
+    const cards = Array.from(container.children);
+
+    cards.forEach(card => {
+        const text = card.textContent || "";
+
+        const show =
+            type === "all" ||
+            (type === "buy" && text.includes("I am buying USDT")) ||
+            (type === "sell" && text.includes("I am selling USDT"));
+
+        card.style.display = show ? "block" : "none";
+    });
+
+    const tabs = button.parentElement;
+
+    if (tabs) {
+        tabs.querySelectorAll("button").forEach(btn => {
+            const name = btn.textContent.trim();
+
+            if (name !== "Accounts") {
+                btn.style.background = "transparent";
+                btn.style.color = "#848e9c";
+                btn.style.fontWeight = "400";
+            }
+        });
+    }
+
+    button.style.background = "#fcd535";
+    button.style.color = "#181a20";
+    button.style.fontWeight = "700";
+}  
 async function toggleAdStatus(adId, newStatus) {
     try {
         const initData = window.Telegram?.WebApp?.initData || "";
