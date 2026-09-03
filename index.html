@@ -3594,6 +3594,7 @@ function openRegister() {
 
   if (modal) {
     modal.style.display = "flex";
+   
   }
 }  
 async function submitSignup() {
@@ -3706,6 +3707,8 @@ async function openProfile() {
 
   if (modal) {
     modal.style.display = "flex";
+  modal.scrollTop = 0;
+modal.scrollTo(0, 0);  
   }
  try {
   const tg = window.Telegram?.WebApp;
