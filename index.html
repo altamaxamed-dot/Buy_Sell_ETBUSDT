@@ -3705,11 +3705,16 @@ async function openProfile() {
       (tgUser.first_name || "U").charAt(0).toUpperCase();
   }
 
-  if (modal) {
+ if (modal) {
     modal.style.display = "flex";
-  modal.scrollTop = 0;
-modal.scrollTo(0, 0);  
-  }
+    modal.scrollTop = 0;
+
+    modal.querySelectorAll("*").forEach((el) => {
+        if (el.scrollHeight > el.clientHeight) {
+            el.scrollTop = 0;
+        }
+    });
+}
  try {
   const tg = window.Telegram?.WebApp;
   const initData = tg?.initData || "";
