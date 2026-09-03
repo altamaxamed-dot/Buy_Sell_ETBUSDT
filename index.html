@@ -258,8 +258,8 @@ textarea {
       width: 100%;
       margin-top: 15px;
       border: none;
-      padding: 12px;
-      border-radius: 11px;
+      padding: 10px;
+      border-radius: 9px;
       font-weight: bold;
       cursor: pointer;
       background: #22c55e;
@@ -1138,7 +1138,7 @@ transform: translateX(0);
   <div class="balance-card">
     <div class="balance-label">Wallet Balance</div>
    <div class="balance" id="walletBalance">0.00 USDT</div> 
-    <div class="etb-balance">≈ 38,750 ETB</div>
+    <div class="etb-balance">≈ 0.00 ETB</div>
 
     <div class="actions">
       <button class="action-btn buy-btn" onclick="setMode('buy')">
@@ -2183,34 +2183,37 @@ transform: translateX(0);
 <script>
 
   let mode = "buy";
-  let selectedRate = 155;
+  let selectedRate = 190;
 
   const buyOffers = [
     {
-      seller: "Ahmed Trader",
-      rate: 155,
-      available: "500 USDT",
-      limit: "1,000 - 50,000 ETB",
+      seller: "Ambessa Trader",
+      rate: 211,
+      available: "8300 USDT",
+      limit: "200,000 - 500,000 ETB",
       payment: "CBE",
       trades: "245 trades • 98%"
+      disabled: true,
     },
 
     {
-      seller: "Abdi P2P",
-      rate: 154.8,
-      available: "820 USDT",
-      limit: "2,000 - 100,000 ETB",
+      seller: "ethioP2P",
+      rate: 211.8,
+      available: "8200 USDT",
+      limit: "20,000 - 1000,000,000 ETB",
       payment: "Telebirr",
       trades: "608 trades • 99%"
+      disabled: true,
     },
 
     {
-      seller: "Hassan Exchange",
-      rate: 155.5,
-      available: "1,240 USDT",
-      limit: "5,000 - 150,000 ETB",
+      seller: "robel Exchange",
+      rate: 212.5,
+      available: "11,240 USDT",
+      limit: "500,000 - 1,550,000 ETB",
       payment: "CBE / Telebirr",
-      trades: "1,102 trades • 99%"
+      trades: "1,102 trades • 89%"
+      disabled: true,
     }
   ];
 
@@ -2298,6 +2301,7 @@ transform: translateX(0);
 
           <button
             class="trade-button"
+           ${offer.disabled ? "disabled" : ""} 
             onclick="openTrade(${index})"
           >
 
