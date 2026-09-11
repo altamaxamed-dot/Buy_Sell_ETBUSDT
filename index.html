@@ -1742,7 +1742,8 @@ transform: translateX(0);
 
     <label>Email *</label>
     <input type="email" id="signupEmail" placeholder="Enter email address">
-
+<label>Password *</label>
+<input type="password" id="signupPassword" placeholder="Create password">
     <label>Country *</label>
     <select id="signupCountry">
       <option value="Ethiopia">🇪🇹 Ethiopia</option>
@@ -3628,10 +3629,11 @@ async function submitSignup() {
   const nickname = document.getElementById("signupNickname")?.value.trim();
   const fullName = document.getElementById("signupFullName")?.value.trim();
   const email = document.getElementById("signupEmail")?.value.trim();
+ const password = document.getElementById("signupPassword")?.value; 
   const country = document.getElementById("signupCountry")?.value;
   const phone = document.getElementById("signupPhone")?.value.trim();
 
-  if (!nickname || !fullName || !email || !country || !phone) {
+ if (!nickname || !fullName || !email || !password || !country || !phone) {
     alert("Please complete all required fields.");
     return;
   }
@@ -3639,11 +3641,28 @@ async function submitSignup() {
   try {
     const tg = window.Telegram?.WebApp;
     const initData = tg?.initData || "";
-
-    if (!initData) {
-      alert("Telegram login data missing.");
-      return;
+if (!initData) {
+  const { data, error } = await supabaseClient.auth.signUp({
+    email: email,
+    password: password,
+    options: {
+      data: {
+        nickname: nickname,
+        full_name: fullName,
+        country: country,
+        phone_number: phone
+      }
     }
+  });
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("Account created successfully ✅");
+  return;
+}
 
     const response = await fetch(
       "https://bcfaznoplvxxseyiarhe.supabase.co/functions/v1/telegram-auth",
