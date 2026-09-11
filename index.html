@@ -1855,7 +1855,14 @@ transform: translateX(0);
         </span>
         <span class="menu-arrow">›</span>
       </button>
-
+<button id="browserRegisterBtn" onclick="openRegister()" style="display:none;">
+  <span class="menu-icon">📝</span>
+  <span>
+    <b>Sign Up</b>
+    <small>Create your account</small>
+  </span>
+  <span class="menu-arrow">›</span>
+</button>
       <button>
         <span class="menu-icon">🎁</span>
         <span>
@@ -3625,6 +3632,14 @@ function openRegister() {
    
   }
 }  
+ document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("browserRegisterBtn");
+  const tg = window.Telegram?.WebApp;
+
+  if (btn && (!tg || !tg.initData)) {
+    btn.style.display = "";
+  }
+}); 
 async function submitSignup() {
   const nickname = document.getElementById("signupNickname")?.value.trim();
   const fullName = document.getElementById("signupFullName")?.value.trim();
