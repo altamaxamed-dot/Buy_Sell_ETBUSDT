@@ -3629,6 +3629,15 @@ function openRegister() {
 
   if (modal) {
     modal.style.display = "flex";
+   modal.style.position = "fixed";
+modal.style.inset = "0";
+modal.style.zIndex = "10050";
+
+const registerPage = modal.querySelector(".register-page");
+if (registerPage) {
+  registerPage.style.opacity = "1";
+  registerPage.style.transform = "translateX(0)";
+} 
    
   }
 }  
