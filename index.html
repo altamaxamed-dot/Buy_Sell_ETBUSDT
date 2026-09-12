@@ -3625,7 +3625,6 @@ async function submitWithdraw() {
   }
 } 
 function openRegister() {
-alert("openRegister works");
   
   const modal = document.getElementById("registerModal");
 
@@ -3634,7 +3633,13 @@ alert("openRegister works");
    modal.style.position = "fixed";
 modal.style.inset = "0";
 modal.style.zIndex = "10050";
-
+modal.style.width = "100%";
+modal.style.height = "100%";
+modal.style.background = "#07111f";
+modal.style.visibility = "visible";
+modal.style.opacity = "1";
+modal.style.pointerEvents = "auto";
+modal.style.overflowY = "auto";
 const registerPage = modal.querySelector(".register-page");
 if (registerPage) {
   registerPage.style.opacity = "1";
