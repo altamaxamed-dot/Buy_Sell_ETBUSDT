@@ -1737,7 +1737,14 @@ transform: translateX(0);
     <button type="button" class="register-submit" onclick="submitLogin()">
       Login
     </button>
-
+<p style="text-align:center; margin-top:16px;">
+  Don't have an account?
+  <button type="button"
+          onclick="document.getElementById('loginModal').style.display='none'; openRegister();"
+          style="background:none;border:none;color:#f5b800;font-weight:700;cursor:pointer;">
+    Sign Up
+  </button>
+</p>
   </div>
 </div>
 <!-- REGISTER MODAL -->
