@@ -3756,6 +3756,13 @@ async function submitLogin() {
   }
 
   alert("Login successful ✅");
+ const loginBtn = document.getElementById("browserLoginBtn");
+const registerBtn = document.getElementById("browserRegisterBtn");
+const logoutBtn = document.getElementById("browserLogoutBtn");
+
+if (loginBtn) loginBtn.style.display = "none";
+if (registerBtn) registerBtn.style.display = "none";
+if (logoutBtn) logoutBtn.style.display = ""; 
 document.getElementById("loginModal").style.display = "none";
 await openProfile();  
 }  
