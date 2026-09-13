@@ -3713,12 +3713,21 @@ async function logoutUser() {
 
   alert("Logout successful ✅");
 
-  document.getElementById("profileFullName").textContent = "Telegram User";
-  document.getElementById("profileUsername").textContent = "@username";
-  document.getElementById("profileAvatar").textContent = "M";
+
 
   const logoutBtn = document.getElementById("browserLogoutBtn");
   if (logoutBtn) logoutBtn.style.display = "none";
+ const loginModal = document.getElementById("loginModal");
+
+if (loginModal) {
+  loginModal.style.display = "flex";
+  loginModal.style.position = "fixed";
+  loginModal.style.inset = "0";
+  loginModal.style.zIndex = "10050";
+  loginModal.style.visibility = "visible";
+  loginModal.style.opacity = "1";
+  loginModal.style.pointerEvents = "auto";
+} 
 }
 async function submitLogin() {
   const email = document.getElementById("loginEmail")?.value.trim();
