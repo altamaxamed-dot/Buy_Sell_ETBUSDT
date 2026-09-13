@@ -3654,6 +3654,16 @@ async function submitWithdraw() {
     );
   }
 } 
+document.addEventListener("DOMContentLoaded", () => {
+  const loginBtn = document.getElementById("browserLoginBtn");
+  const registerBtn = document.getElementById("browserRegisterBtn");
+  const tg = window.Telegram?.WebApp;
+
+  if (!tg || !tg.initData) {
+    if (loginBtn) loginBtn.style.display = "";
+    if (registerBtn) registerBtn.style.display = "";
+  }
+});  
 function openLogin() {
   const modal = document.getElementById("loginModal");
 
