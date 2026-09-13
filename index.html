@@ -2053,6 +2053,9 @@ transform: translateX(0);
     <button class="security-row">
       🔒 Change Secret Code (Password)
     </button>
+    <button id="browserLogoutBtn" class="security-row" onclick="logoutUser()" style="display:none;">
+  🚪 Logout
+</button>
   </div>
 
 </div>
@@ -3657,11 +3660,24 @@ async function submitWithdraw() {
 document.addEventListener("DOMContentLoaded", () => {
   const loginBtn = document.getElementById("browserLoginBtn");
   const registerBtn = document.getElementById("browserRegisterBtn");
+  const logoutBtn = document.getElementById("browserLogoutBtn");
   const tg = window.Telegram?.WebApp;
 
   if (!tg || !tg.initData) {
     if (loginBtn) loginBtn.style.display = "";
     if (registerBtn) registerBtn.style.display = "";
+
+supabaseClient.auth.getUser().then(({ data: { user } }) => {
+  if (user) {
+    if (logoutBtn) logoutBtn.style.display = "";
+    if (loginBtn) loginBtn.style.display = "none";
+    if (registerBtn) registerBtn.style.display = "none";
+  } else {
+    if (logoutBtn) logoutBtn.style.display = "none";
+    if (loginBtn) loginBtn.style.display = "";
+    if (registerBtn) registerBtn.style.display = "";
+  }
+});
   }
 });  
 function openLogin() {
@@ -3687,7 +3703,23 @@ function openLogin() {
     }
   }
 }
+async function logoutUser() {
+  const { error } = await supabaseClient.auth.signOut();
 
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("Logout successful ✅");
+
+  document.getElementById("profileFullName").textContent = "Telegram User";
+  document.getElementById("profileUsername").textContent = "@username";
+  document.getElementById("profileAvatar").textContent = "M";
+
+  const logoutBtn = document.getElementById("browserLogoutBtn");
+  if (logoutBtn) logoutBtn.style.display = "none";
+}
 async function submitLogin() {
   const email = document.getElementById("loginEmail")?.value.trim();
   const password = document.getElementById("loginPassword")?.value;
