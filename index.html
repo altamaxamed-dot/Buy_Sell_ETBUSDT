@@ -2944,18 +2944,21 @@ const response = await fetch(
       alert("Telegram login failed: " + (result.error || "Unknown error"));
       return;
     }
-const accountStatus = result.user?.account_status || "pending";
+if (initData) {
+  const accountStatus = result.user?.account_status || "pending";
 
-if (accountStatus !== "approved") {
-  alert("Your account is pending approval.");
-  return;
+  if (accountStatus !== "approved") {
+    alert("Your account is pending approval.");
+    return;
+  }
 }
-    window.currentUser = result.user;
+const walletData = initData ? result.user : result;    
+   window.currentUser = walletData;
 document.querySelector(".balance").textContent =
-  Number(result.user.balance_usdt || 0).toFixed(2) + " USDT";
+  Number(walletData.balance_usdt|| 0).toFixed(2) + " USDT";
 
   document.querySelector(".etb-balance").textContent =
-    "≈ " + Number(result.user.balance_etb || 0).toLocaleString() + " ETB";
+    "≈ " + Number(walletData.balance_etb || 0).toLocaleString() + " ETB";
 
 document.getElementById("walletUsdtBalance").textContent =
     Number(result.user.balance_usdt || 0).toFixed(2);
