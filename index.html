@@ -3708,6 +3708,8 @@ async function submitLogin() {
   }
 
   alert("Login successful ✅");
+document.getElementById("loginModal").style.display = "none";
+await openProfile();  
 }  
 function openRegister() {
   
