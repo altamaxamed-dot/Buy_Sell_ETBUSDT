@@ -3869,7 +3869,28 @@ async function openProfile() {
     document.getElementById("profileAvatar").textContent =
       (tgUser.first_name || "U").charAt(0).toUpperCase();
   }
+else {
+  const { data: { user } } = await supabaseClient.auth.getUser();
 
+  if (user) {
+    const fullName =
+      user.user_metadata?.full_name ||
+      user.user_metadata?.nickname ||
+      user.email ||
+      "User";
+
+    const username =
+      user.user_metadata?.nickname ||
+      user.email ||
+      "User";
+
+    document.getElementById("profileFullName").textContent = fullName;
+    document.getElementById("profileUsername").textContent = username;
+
+    document.getElementById("profileAvatar").textContent =
+      fullName.charAt(0).toUpperCase();
+  }
+}
  if (modal) {
     modal.style.display = "flex";
     modal.scrollTop = 0;
