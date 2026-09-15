@@ -2969,7 +2969,7 @@ Number(walletData.balance_etb || 0).toLocaleString();
 
 document.querySelector(".balance-label").textContent =
   "Wallet Balance";
-    if (!result.user?.signup_completed) {
+ if (initData && !result.user?.signup_completed) {
   openRegister();
   return;
 }
