@@ -3184,7 +3184,8 @@ async function createDepositRequest() {
         },
         body: JSON.stringify({
           amount: amount,
-          initData: tg.initData,
+       initData: tg?.initData || "",
+accessToken: (await supabaseClient.auth.getSession()).data.session?.access_token || "", 
         }),
       }
     );
