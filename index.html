@@ -2479,7 +2479,7 @@ document.getElementById("homePage").style.display = "none";
       ordersPage.style.display = "block";
     } catch (error) {
         console.error(error);
-        alert("Server connection failed.");
+      alert("Orders error: " + error.message);
     }
 }
 function filterOrders(type, button) {
