@@ -2886,7 +2886,7 @@ body: JSON.stringify({
     closeModal();
   } catch (error) {
     console.error(error);
-    alert("Server connection failed.");
+  alert("Server error: " + error.message); 
   }
 }  
 
