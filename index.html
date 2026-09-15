@@ -2961,10 +2961,10 @@ document.querySelector(".balance").textContent =
     "≈ " + Number(walletData.balance_etb || 0).toLocaleString() + " ETB";
 
 document.getElementById("walletUsdtBalance").textContent =
-    Number(result.user.balance_usdt || 0).toFixed(2);
-window.currentUsdtBalance = Number(result.user.balance_usdt || 0);
+Number(walletData.balance_usdt || 0).toFixed(2);   
+window.currentUsdtBalance = Number(walletData.balance_usdt || 0);
 document.getElementById("walletEtbBalance").textContent =
-    Number(result.user.balance_etb || 0).toLocaleString();
+Number(walletData.balance_etb || 0).toLocaleString();  
 
 
 document.querySelector(".balance-label").textContent =
