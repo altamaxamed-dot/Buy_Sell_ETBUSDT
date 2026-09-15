@@ -3170,10 +3170,6 @@ async function createDepositRequest() {
 
     const tg = window.Telegram?.WebApp;
 
-    if (!tg || !tg.initData) {
-      alert("Please open this app from Telegram.");
-      return;
-    }
 
     const response = await fetch(
       "https://bcfaznoplvxxseyiarhe.supabase.co/functions/v1/create-deposit-request",
