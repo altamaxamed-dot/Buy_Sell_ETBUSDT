@@ -2973,10 +2973,12 @@ document.querySelector(".balance-label").textContent =
   openRegister();
   return;
 }
-    alert(
-      "Login successful ✅\nWelcome " +
-      (result.user.first_name || result.user.username || "User")
-    );
+ alert(
+  "Login successful ✅\nWelcome " +
+  (initData
+    ? (result.user?.first_name || result.user?.username || "User")
+    : (walletData.full_name || walletData.nickname || "User"))
+);
   } catch (error) {
     console.error(error);
    alert("ERROR: " + error.message);
