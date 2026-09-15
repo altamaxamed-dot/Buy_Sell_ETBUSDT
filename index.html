@@ -2979,7 +2979,7 @@ document.querySelector(".balance-label").textContent =
     );
   } catch (error) {
     console.error(error);
-    alert("Server connection failed.");
+   alert("ERROR: " + error.message);
   }
 })();
  function setActiveNav(activeName) {
